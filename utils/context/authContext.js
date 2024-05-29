@@ -7,7 +7,7 @@ import React, {
   useMemo,
   useState,
 } from 'react';
-import { checkUser } from '../auth';
+import { checkUser, registerUser } from '../auth';
 import { firebase } from '../client';
 
 const AuthContext = createContext();
@@ -23,25 +23,23 @@ const AuthProvider = (props) => {
   // false = user is not logged in, but the app has loaded
   // an object/value = user is logged in
 
-  const updateUser = useMemo(
-    () => (uid) => checkUser(uid).then((gamerInfo) => {
-      setUser({ fbUser: oAuthUser, ...gamerInfo });
-    }),
-    [oAuthUser],
-  );
-
   useEffect(() => {
     firebase.auth().onAuthStateChanged((fbUser) => {
       if (fbUser) {
         setOAuthUser(fbUser);
+        let userObj = { fbUser, uid: fbUser.uid };
+        setUser(userObj);
         checkUser(fbUser.uid).then((gamerInfo) => {
-          let userObj = {};
-          if ('null' in gamerInfo) {
-            userObj = gamerInfo;
+          if (gamerInfo && typeof gamerInfo === 'object' && !('null' in gamerInfo)) {
+            userObj = { ...userObj, ...gamerInfo };
+            setUser(userObj);
           } else {
-            userObj = { fbUser, uid: fbUser.uid, ...gamerInfo };
+            // If checkUser returns NotFound, register the user
+            registerUser({ uid: fbUser.uid }).then((registeredUser) => {
+              userObj = { ...userObj, ...registeredUser };
+              setUser(userObj);
+            });
           }
-          setUser(userObj);
         });
       } else {
         setOAuthUser(false);
@@ -54,12 +52,11 @@ const AuthProvider = (props) => {
     // https://reactjs.org/docs/hooks-reference.html#usememo
     () => ({
       user,
-      updateUser,
       userLoading: user === null || oAuthUser === null,
       // as long as user === null, will be true
       // As soon as the user value !== null, value will be false
     }),
-    [user, oAuthUser, updateUser],
+    [user, oAuthUser],
   );
 
   return <AuthContext.Provider value={value} {...props} />;
