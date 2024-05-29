@@ -1,10 +1,11 @@
 @import 'bootstrap/dist/css/bootstrap.css';
 
+
 html,
 body {
   padding: 0;
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
+  font-family: Roboto, -apple-system, BlinkMacSystemFont, Segoe UI, Oxygen,
     Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
 }
 
@@ -19,4 +20,27 @@ a {
 
 body {
   background-color: #88effd;
+}
+
+.form-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+.form-wrapper {
+  align-items: center;
+  width: 100%;
+  max-width: 700px;
+}
+
+.form-wrapper .button-container {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px; /* Optional: Add some margin above the button */
+}
+
+.form-wrapper button {
+  width: 15%;
 }
