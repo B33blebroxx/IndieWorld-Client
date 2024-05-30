@@ -44,3 +44,17 @@ body {
 .form-wrapper button {
   width: 15%;
 }
+
+.file-upload {
+  background: rgba(19, 1, 1, 0.146);
+  backdrop-filter: blur( 4px );
+  -webkit-backdrop-filter: blur( 4px );
+  border-top-left-radius: 5px;
+  border-top-right-radius: 5px;
+  border-bottom-left-radius: 0px;
+  border-bottom-right-radius: 0px;
+  border-bottom: 1px solid rgba(56, 55, 55, 0.575);
+  border-left-color: transparent;
+  border-right-color: transparent;
+  border-top-color: transparent;
+}

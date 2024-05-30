@@ -3,8 +3,9 @@ import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import {
   Button,
-  FormControl, FormGroup, FormHelperText, FormLabel, InputLabel, MenuItem, Select, TextField,
+  FormControl, FormGroup, FormHelperText, FormLabel, MenuItem, Select, TextField,
 } from '@mui/material';
+import { Form } from 'react-bootstrap';
 import { updatePromotion, createPromotion } from '../../api/promotionApi';
 import { useAuth } from '../../utils/context/authContext';
 import { getUser, updateUserPromotion } from '../../api/userApi';
@@ -52,6 +53,20 @@ export default function PromotionForm({ promotionObj }) {
     }
   };
 
+  const handleFileUpload = (e) => {
+    if (e.target.files.length > 0) {
+      const file = e.target.files[0];
+      const reader = new FileReader();
+      reader.readAsDataURL(file);
+      reader.onloadend = () => {
+        setFormData((prevState) => ({
+          ...prevState,
+          logoUrl: reader.result,
+        }));
+      };
+    }
+  };
+
   return (
     <div className="form-wrapper">
       <form onSubmit={handleSubmit}>
@@ -63,11 +78,6 @@ export default function PromotionForm({ promotionObj }) {
         <FormGroup>
           <FormLabel>Acronym</FormLabel>
           <TextField id="filled-basic" label="(ex: AEW, WWE, etc.)" variant="filled" name="acronym" value={formData.acronym} onChange={handleChange} required />
-        </FormGroup>
-        <br />
-        <FormGroup>
-          <FormLabel>Logo URL</FormLabel>
-          <TextField id="filled-basic" label="(insert link to a picture of your logo...)" type="url" variant="filled" name="logoUrl" value={formData.logoUrl} onChange={handleChange} required />
         </FormGroup>
         <br />
         <FormGroup>
@@ -85,9 +95,9 @@ export default function PromotionForm({ promotionObj }) {
           <TextField id="filled-basic" label="(ex: Tony Khan, TKO Holdings, etc...)" variant="filled" type="text" name="owner" value={formData.owner} onChange={handleChange} required />
         </FormGroup>
         <br />
-        <FormGroup sx={{ m: 1, minWidth: 80 }} size="small">
+        <FormGroup>
+          <FormLabel>Show Frequency</FormLabel>
           <FormControl variant="filled">
-            <InputLabel id="showFrequency">Select Show Frequency</InputLabel>
             <Select
               labelId="showFrequency"
               id="showFrequency"
@@ -107,6 +117,12 @@ export default function PromotionForm({ promotionObj }) {
             <FormHelperText>Select how often your promotion has shows</FormHelperText>
           </FormControl>
         </FormGroup>
+        <br />
+        <Form.Group>
+          <Form.Label>Promotion Logo</Form.Label>
+          <Form.Control className="file-upload" variant="sm" type="file" onChange={handleFileUpload} />
+        </Form.Group>
+        <br />
         <div className="button-container">
           <Button type="submit" variant="contained" color="primary">
             Submit
