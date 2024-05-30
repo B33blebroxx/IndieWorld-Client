@@ -1,34 +1,66 @@
-/* eslint-disable jsx-a11y/anchor-is-valid */
 import React from 'react';
-import Link from 'next/link';
 import {
-  Navbar, //
-  Container,
-  Nav,
-  Button,
-} from 'react-bootstrap';
+  Button, Drawer, List, ListItem, ListItemText,
+} from '@mui/material';
+import MenuIcon from '@mui/icons-material/Menu';
+import { makeStyles } from '@mui/styles';
+import Link from 'next/link';
 import { signOut } from '../utils/auth';
 
+const useStyles = makeStyles(() => ({
+  drawer: {
+    width: 320,
+  },
+  drawerPaper: {
+    width: 320,
+  },
+  drawerContainer: {
+    overflow: 'auto',
+  },
+}));
+
 export default function NavBar() {
+  const classes = useStyles();
+  const [open, setOpen] = React.useState(false);
+
+  const handleDrawerToggle = () => {
+    setOpen(!open);
+  };
+
+  const handleDrawerClose = () => {
+    setOpen(false);
+  };
+
   return (
-    <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark">
-      <Container>
-        <Link passHref href="/">
-          <Navbar.Brand>CHANGE ME</Navbar.Brand>
-        </Link>
-        <Navbar.Toggle aria-controls="responsive-navbar-nav" />
-        <Navbar.Collapse id="responsive-navbar-nav">
-          <Nav className="me-auto">
-            {/* CLOSE NAVBAR ON LINK SELECTION: https://stackoverflow.com/questions/72813635/collapse-on-select-react-bootstrap-navbar-with-nextjs-not-working */}
-            <Link passHref href="/">
-              <Nav.Link>Home</Nav.Link>
-            </Link>
-            <Button variant="danger" onClick={signOut}>
-              Sign Out
-            </Button>
-          </Nav>
-        </Navbar.Collapse>
-      </Container>
-    </Navbar>
+    <div>
+      <Button onClick={handleDrawerToggle}><MenuIcon /></Button>
+      <Drawer
+        className={classes.drawer}
+        variant="temporary"
+        anchor="left"
+        open={open}
+        onClose={handleDrawerClose}
+        classes={{
+          paper: classes.drawerPaper,
+        }}
+      >
+        <List>
+          <Link href="/" passHref>
+            <ListItem button>
+              <ListItemText primary="Home" />
+            </ListItem>
+          </Link>
+          <Link href="/promotions/all" passHref>
+            <ListItem button>
+              <ListItemText primary="Promotions" />
+            </ListItem>
+          </Link>
+          <ListItem button variant="outline-danger" onClick={signOut}>
+            <ListItemText primary="Sign Out" />
+          </ListItem>
+          {/* Add more navigation links here */}
+        </List>
+      </Drawer>
+    </div>
   );
 }
