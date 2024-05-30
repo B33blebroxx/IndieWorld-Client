@@ -5,6 +5,7 @@ import { useAuth } from '../utils/context/authContext';
 function Home() {
   const { user } = useAuth();
   const router = useRouter();
+
   const handleRegisterPromotion = () => {
     router.push('/promotions/new');
   };

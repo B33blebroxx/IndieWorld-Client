@@ -6,6 +6,8 @@ import {
   FormControl, FormGroup, FormHelperText, FormLabel, InputLabel, MenuItem, Select, TextField,
 } from '@mui/material';
 import { updatePromotion, createPromotion } from '../../api/promotionApi';
+import { useAuth } from '../../utils/context/authContext';
+import { getUser, updateUserPromotion } from '../../api/userApi';
 
 const initialState = {
   promotionName: '',
@@ -20,9 +22,11 @@ const initialState = {
 export default function PromotionForm({ promotionObj }) {
   const [formData, setFormData] = useState({ ...initialState });
   const router = useRouter();
+  const { user } = useAuth();
 
   useEffect(() => {
     if (promotionObj) setFormData(promotionObj);
+    console.warn(user);
   }, [promotionObj]);
 
   const handleChange = (e) => {
@@ -36,7 +40,15 @@ export default function PromotionForm({ promotionObj }) {
     if (promotionObj.id) {
       await updatePromotion(formData).then(() => router.push('/promotions'));
     } else {
-      await createPromotion(formData).then(() => router.push('/promotions'));
+      await createPromotion(formData)
+        .then((newPromotion) => {
+          getUser(user.id)
+            .then(() => {
+              // Update the user's promotionId with the new promotion's ID
+              updateUserPromotion(user.id, newPromotion.id)
+                .then(() => router.push('/promotions'));
+            });
+        });
     }
   };
 
