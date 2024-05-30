@@ -52,4 +52,18 @@ const getPromotion = (id) => new Promise((resolve, reject) => {
     .catch(reject);
 });
 
-export { createPromotion, updatePromotion, getPromotion };
+const getAllPromotions = () => new Promise((resolve, reject) => {
+  fetch(`${endpoint}/promotions`, {
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json',
+      Accept: 'application/json',
+    },
+  })
+    .then((resp) => resolve(resp.json()))
+    .catch(reject);
+});
+
+export {
+  createPromotion, updatePromotion, getPromotion, getAllPromotions,
+};

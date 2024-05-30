@@ -46,7 +46,6 @@ export default function PromotionForm({ promotionObj }) {
 
   useEffect(() => {
     if (promotionObj) setFormData(promotionObj);
-    console.warn(user);
   }, [promotionObj, user]);
 
   const handleChange = (e) => {
@@ -57,15 +56,14 @@ export default function PromotionForm({ promotionObj }) {
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (promotionObj.id) {
-      await updatePromotion(formData).then(() => router.push('/promotions'));
+      await updatePromotion(formData).then(() => router.push('/promotions/all'));
     } else {
       await createPromotion(formData)
         .then((newPromotion) => {
           getUser(user.id)
             .then(() => {
-              // Update the user's promotionId with the new promotion's ID
               updateUserPromotion(user.id, newPromotion.id)
-                .then(() => router.push('/promotions'));
+                .then(() => router.push('/promotions/all'));
             });
         });
     }
@@ -91,43 +89,43 @@ export default function PromotionForm({ promotionObj }) {
         {promotionObj ? 'Edit Promotion' : 'Create Promotion'}
       </Button>
       <Dialog open={open} onClose={handleClose} aria-labelledby="form-dialog-title">
-        <DialogTitle id="form-dialog-title"><Typography variant="h6" align="center">Promotion Form</Typography></DialogTitle>
+        <DialogTitle id="form-dialog-title"><Typography component="div" variant="h6" align="center">Promotion Form</Typography></DialogTitle>
         <DialogContent style={{ width: '600px' }}>
-          <Typography align="center">
+          <Typography component="div" align="center">
             <Box display="flex" flexDirection="column" alignItems="center">
               <div className="form-wrapper">
                 <form onSubmit={handleSubmit}>
                   <FormGroup>
                     <FormLabel>
-                      <Typography variant="h7" color="textPrimary">Promotion Name</Typography>
+                      <Typography component="div" variant="h7" color="textPrimary">Promotion Name</Typography>
                     </FormLabel>
                     <TextField id="filled-basic" label="(ex: All Elite Wrestling, World Wrestling Entertainment, etc.)" variant="filled" name="promotionName" value={formData.promotionName} onChange={handleChange} required />
                   </FormGroup>
                   <br />
                   <FormGroup>
                     <FormLabel>
-                      <Typography variant="h7" color="textPrimary">Acronym</Typography>
+                      <Typography component="div" variant="h7" color="textPrimary">Acronym</Typography>
                     </FormLabel>
                     <TextField id="filled-basic" label="(ex: AEW, WWE, etc.)" variant="filled" name="acronym" value={formData.acronym} onChange={handleChange} required />
                   </FormGroup>
                   <br />
                   <FormGroup>
-                    <FormLabel> <Typography variant="h7" color="textPrimary">Headquarters</Typography></FormLabel>
+                    <FormLabel> <Typography component="div" variant="h7" color="textPrimary">Headquarters</Typography></FormLabel>
                     <TextField id="filled-basic" label="(ex: Jacksonville, FL, Stamford, CT, etc.)" type="text" variant="filled" name="hq" value={formData.hq} onChange={handleChange} required />
                   </FormGroup>
                   <br />
                   <FormGroup>
-                    <FormLabel> <Typography variant="h7" color="textPrimary">Established</Typography></FormLabel>
+                    <FormLabel> <Typography component="div" variant="h7" color="textPrimary">Established</Typography></FormLabel>
                     <TextField id="filled-basic" label="(ex: 2021, 1999, etc.)" variant="filled" type="number" name="established" value={formData.established} onChange={handleChange} required />
                   </FormGroup>
                   <br />
                   <FormGroup>
-                    <FormLabel> <Typography variant="h7" color="textPrimary">Owner</Typography></FormLabel>
+                    <FormLabel> <Typography component="div" variant="h7" color="textPrimary">Owner</Typography></FormLabel>
                     <TextField id="filled-basic" label="(ex: Tony Khan, TKO Holdings, etc...)" variant="filled" type="text" name="owner" value={formData.owner} onChange={handleChange} required />
                   </FormGroup>
                   <br />
                   <FormGroup>
-                    <FormLabel> <Typography variant="h7" color="textPrimary">Show Frequency</Typography></FormLabel>
+                    <FormLabel> <Typography component="div" variant="h7" color="textPrimary">Show Frequency</Typography></FormLabel>
                     <FormControl variant="filled">
                       <Select
                         labelId="showFrequency"
@@ -150,7 +148,7 @@ export default function PromotionForm({ promotionObj }) {
                   </FormGroup>
                   <br />
                   <FormGroup>
-                    <FormLabel> <Typography variant="h7" color="textPrimary">Logo</Typography></FormLabel>
+                    <FormLabel> <Typography component="div" variant="h7" color="textPrimary">Logo</Typography></FormLabel>
                     <Form.Control type="file" accept="image/*" onChange={handleFileUpload} />
                     {formData.logoUrl && (
                     <div style={{
@@ -189,7 +187,7 @@ PromotionForm.propTypes = {
     acronym: PropTypes.string,
     logoUrl: PropTypes.string,
     hq: PropTypes.string,
-    established: PropTypes.string,
+    established: PropTypes.number,
     owner: PropTypes.string,
     showFrequency: PropTypes.string,
   }),
