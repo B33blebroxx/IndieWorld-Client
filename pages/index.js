@@ -1,14 +1,20 @@
-import { Button } from 'react-bootstrap';
-import { useRouter } from 'next/router';
+import { useEffect, useState } from 'react';
 import { useAuth } from '../utils/context/authContext';
+import PromotionForm from '../components/Forms/PromotionForm';
+import { getPromotion } from '../api/promotionApi';
 
 function Home() {
   const { user } = useAuth();
-  const router = useRouter();
+  const [promotion, setPromotion] = useState(null);
 
-  const handleRegisterPromotion = () => {
-    router.push('/promotions/new');
-  };
+  useEffect(() => {
+    if (user.promotionId) {
+      getPromotion(user.promotionId).then((promotionData) => {
+        setPromotion(promotionData);
+      });
+    }
+  }, [user.promotionId]);
+
   return (
     <div
       className="text-center d-flex flex-column justify-content-center align-content-center"
@@ -20,7 +26,9 @@ function Home() {
       }}
     >
       <h1>Hello {user.fbUser.displayName}! </h1>
-      <Button variant="primary" onClick={handleRegisterPromotion}>Register Promotion</Button>
+      <div id="landing-page-buttons">
+        <PromotionForm promotionObj={promotion} />
+      </div>
     </div>
   );
 }
