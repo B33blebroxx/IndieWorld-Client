@@ -1,44 +1,36 @@
 const endpoint = 'https://localhost:7114';
 
-const createPromotion = (promotionData) => new Promise((resolve, reject) => {
-  fetch(`${endpoint}/promotions`, {
+const createPromotion = async (promotionData) => {
+  const response = await fetch(`${endpoint}/promotions`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
     },
     body: JSON.stringify(promotionData),
-  })
-    .then((response) => {
-      if (response.ok) {
-        resolve(response.json());
-      } else {
-        reject(new Error('Failed to create promotion'));
-      }
-    })
-    .catch((error) => {
-      reject(error);
-    });
-});
+  });
 
-const updatePromotion = (promotionData) => new Promise((resolve, reject) => {
-  fetch(`${endpoint}/promotions/${promotionData.id}`, {
+  if (!response.ok) {
+    throw new Error('Failed to create promotion');
+  }
+
+  return response.json();
+};
+
+const updatePromotion = async (promotionData) => {
+  const response = await fetch(`${endpoint}/promotions/${promotionData.id}`, {
     method: 'PUT',
     headers: {
       'Content-Type': 'application/json',
     },
     body: JSON.stringify(promotionData),
-  })
-    .then((response) => {
-      if (response.ok) {
-        resolve(response.json());
-      } else {
-        reject(new Error('Failed to update promotion'));
-      }
-    })
-    .catch((error) => {
-      reject(error);
-    });
-});
+  });
+
+  if (!response.ok) {
+    throw new Error('Failed to update promotion');
+  }
+
+  return response.json();
+};
 
 const getPromotion = (id) => new Promise((resolve, reject) => {
   fetch(`${endpoint}/promotions/${id}`, {

@@ -55,7 +55,7 @@ export default function PromotionForm({ promotionObj }) {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    if (promotionObj.id) {
+    if (promotionObj?.id) {
       await updatePromotion(formData).then(() => router.push('/promotions/all'));
     } else {
       await createPromotion(formData)
@@ -63,7 +63,7 @@ export default function PromotionForm({ promotionObj }) {
           getUser(user.id)
             .then(() => {
               updateUserPromotion(user.id, newPromotion.id)
-                .then(() => router.push('/promotions/all'));
+                .then(() => router.push(`/promotions/profile/${newPromotion.id}`));
             });
         });
     }
@@ -125,10 +125,27 @@ export default function PromotionForm({ promotionObj }) {
                   </FormGroup>
                   <br />
                   <FormGroup>
+                    <FormLabel> <Typography component="div" variant="h7" color="textPrimary">Description</Typography></FormLabel>
+                    <TextField
+                      id="filled-basic"
+                      label="(ex: A brief description of the promotion)"
+                      variant="filled"
+                      type="text"
+                      multiline
+                      rows={3}
+                      maxRows={6}
+                      name="description"
+                      value={formData.description}
+                      onChange={handleChange}
+                      required
+                    />
+                  </FormGroup>
+                  <FormGroup>
                     <FormLabel> <Typography component="div" variant="h7" color="textPrimary">Show Frequency</Typography></FormLabel>
                     <FormControl variant="filled">
                       <Select
                         labelId="showFrequency"
+                        size="small"
                         id="showFrequency"
                         name="showFrequency"
                         value={formData.showFrequency}
