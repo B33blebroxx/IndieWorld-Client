@@ -4,14 +4,16 @@ import {
   Card, CardContent, CardMedia, Stack, Typography,
 } from '@mui/material';
 import { getAPromotionAndItsShows } from '../../../api/promotionApi';
-import ShowCard from '../../../components/Cards/ShowCard';
 import ShowForm from '../../../components/Forms/ShowForm';
 import { UserContext } from '../../../utils/context/authContext';
+import Loading from '../../../components/Loading';
+import ShowCard from '../../../components/Cards/ShowCard';
 
 export default function PromotionPage() {
   const [promotion, setPromotion] = useState();
   const [loading, setLoading] = useState(true);
   const { user } = useContext(UserContext);
+  const [shows, setShows] = useState([]);
   const router = useRouter();
   const { id } = router.query;
 
@@ -23,14 +25,22 @@ export default function PromotionPage() {
       }
       const result = await getAPromotionAndItsShows(id);
       setPromotion(result);
+      setShows(result.shows);
       setLoading(false);
     };
     fetchData();
   }, [id, user]);
 
+  useEffect(() => {
+    if (promotion?.shows) {
+      setShows(promotion.shows);
+    }
+  }, [promotion]);
+
   if (loading) {
-    return <div>Loading...</div>; // Or your custom loading indicator
+    return <div><Loading /></div>;
   }
+
   return (
     <>
       <Card style={{ maxWidth: '100%', maxHeight: '23rem' }} className="promotionInfo">
@@ -71,14 +81,18 @@ export default function PromotionPage() {
       <br />
       <div className="text-center">
         <h2>Upcoming Shows</h2>
+        <br />
         {user.promotionId === promotion?.id && (
-        <div style={{ textAlign: 'left' }}>
-          <ShowForm />
-        </div>
+          <div style={{ textAlign: 'left' }}>
+            <ShowForm setShows={setShows} />
+          </div>
         )}
       </div>
+      <br /><br />
       <div className="show-cards-container">
-        {promotion?.shows?.map((show) => <ShowCard key={show.id} show={show} />)}
+        {shows?.map((show) => (
+          <ShowCard key={show.id} show={show} userObj={user} setShows={setShows} />
+        ))}
       </div>
     </>
   );

@@ -8,7 +8,7 @@ function PromotionCard({ promotionName, logo, id }) {
   return (
     <Link href={`/promotions/profile/${id}`}>
       <a>
-        <img src={logo} alt="Promotion Logo" width={350} height={200} />
+        <img src={logo} alt="Promotion Logo" width={385} height={255} />
         <div className="promotion-card-name"><h4>{promotionName}</h4></div>
       </a>
     </Link>
