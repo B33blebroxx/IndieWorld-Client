@@ -4,11 +4,11 @@ import Link from 'next/link';
 import PropTypes from 'prop-types';
 import React from 'react';
 
-function PromotionCard({ promotionName, logoUrl, id }) {
+function PromotionCard({ promotionName, logo, id }) {
   return (
-    <Link href={`/promotions/${id}`}>
+    <Link href={`/promotions/profile/${id}`}>
       <a>
-        <img src={logoUrl} alt="Promotion Logo" width={350} height={200} />
+        <img src={logo} alt="Promotion Logo" width={350} height={200} />
         <div className="promotion-card-name"><h4>{promotionName}</h4></div>
       </a>
     </Link>
@@ -17,7 +17,7 @@ function PromotionCard({ promotionName, logoUrl, id }) {
 
 PromotionCard.propTypes = {
   promotionName: PropTypes.string.isRequired,
-  logoUrl: PropTypes.string.isRequired,
+  logo: PropTypes.string.isRequired,
   id: PropTypes.number.isRequired,
 };
 

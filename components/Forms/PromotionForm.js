@@ -21,7 +21,7 @@ import { updatePromotion, createPromotion } from '../../api/promotionApi';
 const initialState = {
   promotionName: '',
   acronym: '',
-  logoUrl: '',
+  logo: '',
   hq: '',
   established: '',
   owner: '',
@@ -76,7 +76,7 @@ export default function PromotionForm({ promotionObj }) {
       reader.onloadend = () => {
         setFormData((prevData) => ({
           ...prevData,
-          logoUrl: reader.result,
+          logo: reader.result,
         }));
       };
       reader.readAsDataURL(file);
@@ -85,7 +85,7 @@ export default function PromotionForm({ promotionObj }) {
 
   return (
     <div>
-      <Button variant="outlined" color="primary" onClick={handleClickOpen}>
+      <Button variant="contained" color="primary" onClick={handleClickOpen}>
         {promotionObj ? 'Edit Promotion' : 'Create Promotion'}
       </Button>
       <Dialog open={open} onClose={handleClose} aria-labelledby="form-dialog-title">
@@ -150,12 +150,12 @@ export default function PromotionForm({ promotionObj }) {
                   <FormGroup>
                     <FormLabel> <Typography component="div" variant="h7" color="textPrimary">Logo</Typography></FormLabel>
                     <Form.Control type="file" accept="image/*" onChange={handleFileUpload} />
-                    {formData.logoUrl && (
+                    {formData.logo && (
                     <div style={{
                       marginTop: '10px', marginLeft: '60px', width: '400px', height: '400px', position: 'relative',
                     }}
                     >
-                      <Image key={formData.logoUrl} src={formData.logoUrl} alt="Logo" layout="fill" objectFit="cover" />
+                      <Image key={formData.logo} src={formData.logo} alt="Logo" layout="fill" objectFit="cover" />
                     </div>
                     )}
                   </FormGroup>
@@ -185,7 +185,7 @@ PromotionForm.propTypes = {
     id: PropTypes.number,
     promotionName: PropTypes.string,
     acronym: PropTypes.string,
-    logoUrl: PropTypes.string,
+    logo: PropTypes.string,
     hq: PropTypes.string,
     established: PropTypes.number,
     owner: PropTypes.string,

@@ -23,7 +23,7 @@ const AllPromotionsPage = () => {
       <h2>All Promotions</h2>
       <div className="card-container">
         {promotions.map((promotion) => (
-          <PromotionCard key={promotion.id} id={promotion.id} promotion={promotion} promotionName={promotion.promotionName} logoUrl={promotion.logoUrl} />
+          <PromotionCard key={promotion.id} id={promotion.id} promotion={promotion} promotionName={promotion.promotionName} logo={promotion.logo} />
         ))}
       </div>
     </>
