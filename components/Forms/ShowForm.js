@@ -28,13 +28,14 @@ const initialState = {
   price: 0,
 };
 
-export default function ShowForm({ showObj }) {
+export default function ShowForm({ showObj, setShows }) {
   const [formData, setFormData] = useState({ ...initialState });
   const router = useRouter();
   const { user } = useContext(UserContext);
   const [open, setOpen] = useState(false);
 
-  const handleClickOpen = () => {
+  const handleClickOpen = (e) => {
+    e.preventDefault();
     setOpen(true);
   };
 
@@ -45,15 +46,19 @@ export default function ShowForm({ showObj }) {
   };
 
   useEffect(() => {
-    if (showObj) setFormData(showObj);
-    console.warn(user);
+    if (showObj) {
+      setFormData({
+        ...showObj,
+        showDate: showObj.showDate ? new Date(showObj.showDate) : null,
+      });
+    }
   }, [showObj, user]);
 
   const handleChange = (event) => {
     const { name, value } = event.target;
     setFormData((prevState) => ({
       ...prevState,
-      [name]: value,
+      [name]: name === 'price' ? parseFloat(value) : value,
     }));
   };
 
@@ -64,9 +69,17 @@ export default function ShowForm({ showObj }) {
       promotionId: user.promotionId,
     };
     if (showObj.id) {
-      await updateShow(data).then(() => router.push(`/promotions/profile/${user?.promotionId}`));
+      await updateShow(data).then(() => {
+        setShows((prevShows) => prevShows.map((show) => (show.id === data.id ? data : show)));
+        handleClose();
+        router.push(`/promotions/profile/${user?.promotionId}`);
+      });
     } else {
-      await createShow(data).then(() => router.push(`/promotions/profile/${user?.promotionId}`));
+      await createShow(data).then((newShow) => {
+        setShows((prevShows) => [...prevShows, newShow]);
+        handleClose();
+        router.push(`/promotions/profile/${user?.promotionId}`);
+      });
     }
   };
 
@@ -86,8 +99,8 @@ export default function ShowForm({ showObj }) {
 
   return (
     <div>
-      <Button variant="contained" color="primary" onClick={handleClickOpen}>
-        Add Show
+      <Button variant="contained" type="button" color="primary" onClick={handleClickOpen}>
+        {showObj.id ? 'Edit Show' : 'Add Show'}
       </Button>
       <Dialog open={open} onClose={handleClose} aria-labelledby="form-dialog-title">
         <DialogTitle id="form-dialog-title"><Typography component="div" variant="h6" align="center">Show Form</Typography></DialogTitle>
@@ -124,8 +137,11 @@ export default function ShowForm({ showObj }) {
                         onChange={(newValue) => {
                           setFormData({ ...formData, showDate: newValue });
                         }}
-                        renderInput={(params) => <TextField {...params} />}
-                      />
+                        components={{
+                          textField: TextField,
+                        }}
+                      >{'>'}
+                      </DatePicker>
                     </FormGroup>
                   </LocalizationProvider>
                   <br />
@@ -169,7 +185,7 @@ export default function ShowForm({ showObj }) {
           </Typography>
         </DialogContent>
         <DialogActions>
-          <Button onClick={handleClose} color="primary">
+          <Button onClick={handleClose} type="button" color="primary">
             Cancel
           </Button>
         </DialogActions>
@@ -189,6 +205,7 @@ ShowForm.propTypes = {
     price: PropTypes.number,
     promotionId: PropTypes.number,
   }),
+  setShows: PropTypes.func.isRequired,
 };
 
 ShowForm.defaultProps = {
