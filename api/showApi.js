@@ -32,4 +32,13 @@ const updateShow = async (promotionData) => {
   return response.json();
 };
 
-export { createShow, updateShow };
+const getAllShows = async () => {
+  const response = await fetch(`${endpoint}/shows`);
+  if (!response.ok) {
+    throw new Error('Failed to fetch shows');
+  }
+
+  return response.json();
+};
+
+export { createShow, updateShow, getAllShows };

@@ -55,7 +55,12 @@ export default function NavBar() {
               <ListItemText primary="Promotions" />
             </ListItem>
           </Link>
-          <ListItem button variant="outline-danger" onClick={signOut}>
+          <Link href="/shows/all" passHref>
+            <ListItem button>
+              <ListItemText primary="Shows" />
+            </ListItem>
+          </Link>
+          <ListItem Button variant="outline-danger" onClick={signOut}>
             <ListItemText primary="Sign Out" />
           </ListItem>
           {/* Add more navigation links here */}
