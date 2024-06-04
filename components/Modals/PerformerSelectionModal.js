@@ -3,6 +3,7 @@ import {
 } from '@mui/material';
 import PropTypes from 'prop-types';
 import { useEffect, useState } from 'react';
+import { Image } from 'react-bootstrap';
 import { getAllPerformers } from '../../api/performerApi';
 
 export default function PerformerSelectionModal({
@@ -43,7 +44,12 @@ export default function PerformerSelectionModal({
               <Grid item xs={12} key={performer.id}>
                 <FormControlLabel
                   control={<Checkbox checked={selectedPerformers.includes(performer.id)} onChange={() => handleSelect(performer.id)} />}
-                  label={`${performer.ringName} (${performer.role.title})`}
+                  label={(
+                    <div>
+                      <Image src={performer.imageUrl} alt={performer.ringName} width={60} height={75} rounded />
+                      {`${performer.ringName} (${performer.role.title})`}
+                    </div>
+                  )}
                 />
               </Grid>
             ))}
