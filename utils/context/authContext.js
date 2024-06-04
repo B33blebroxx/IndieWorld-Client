@@ -5,31 +5,32 @@ import React, {
   useMemo,
   useState,
 } from 'react';
+import PropTypes from 'prop-types';
 import { checkUser, registerUser } from '../auth';
 import { firebase } from '../client';
 
 const AuthContext = createContext();
-const UserContext = createContext(); // Create the UserContext
+const UserContext = createContext();
 
 AuthContext.displayName = 'AuthContext';
 
-const AuthProvider = (props) => {
+const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
   const [oAuthUser, setOAuthUser] = useState(null);
 
   useEffect(() => {
-    firebase.auth().onAuthStateChanged(async (fbUser) => { // Make this function async
+    firebase.auth().onAuthStateChanged(async (fbUser) => {
       if (fbUser) {
         setOAuthUser(fbUser);
         let userObj = { fbUser, uid: fbUser.uid };
         setUser(userObj);
         try {
-          const gamerInfo = await checkUser(fbUser.uid); // Await the checkUser function
+          const gamerInfo = await checkUser(fbUser.uid);
           if (gamerInfo && typeof gamerInfo === 'object' && !('null' in gamerInfo)) {
             userObj = { ...userObj, ...gamerInfo };
             setUser(userObj);
           } else {
-            const registeredUser = await registerUser({ uid: fbUser.uid }); // Await the registerUser function
+            const registeredUser = await registerUser({ uid: fbUser.uid });
             userObj = { ...userObj, ...registeredUser };
             setUser(userObj);
           }
@@ -51,13 +52,23 @@ const AuthProvider = (props) => {
     [user, oAuthUser],
   );
 
-  const userValue = useMemo(() => ({ user }), [user]); // Create a value for the UserContext
+  const userValue = useMemo(() => ({
+    user,
+    performerId: user?.performerId,
+    promotionId: user?.promotionId,
+    id: user?.id,
+  }), [user]);
 
   return (
     <AuthContext.Provider value={value}>
-      <UserContext.Provider value={userValue} {...props} /> {/* Provide the UserContext */}
+      <UserContext.Provider value={userValue}> {children}
+      </UserContext.Provider>
     </AuthContext.Provider>
   );
+};
+
+AuthProvider.propTypes = {
+  children: PropTypes.node.isRequired,
 };
 
 const AuthConsumer = AuthContext.Consumer;
@@ -73,4 +84,4 @@ const useAuth = () => {
 
 export {
   AuthProvider, useAuth, AuthConsumer, UserContext,
-}; // Export the UserContext
+};

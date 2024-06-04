@@ -41,4 +41,15 @@ const getAllShows = async () => {
   return response.json();
 };
 
-export { createShow, updateShow, getAllShows };
+const getAShowAndItsPerformers = async (id) => {
+  const response = await fetch(`${endpoint}/shows/${id}/performers`);
+  if (!response.ok) {
+    throw new Error('Failed to fetch show');
+  }
+
+  return response.json();
+};
+
+export {
+  createShow, updateShow, getAllShows, getAShowAndItsPerformers,
+};

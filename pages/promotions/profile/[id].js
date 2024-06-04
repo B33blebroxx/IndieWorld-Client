@@ -19,7 +19,7 @@ export default function PromotionPage() {
 
   useEffect(() => {
     const fetchData = async () => {
-      if (!user.promotionId && promotion?.id) {
+      if (!user.promotionId && !promotion?.id) {
         setLoading(true);
         return;
       }
@@ -29,7 +29,7 @@ export default function PromotionPage() {
       setLoading(false);
     };
     fetchData();
-  }, [id, user]);
+  }, [promotion.id, id, user]);
 
   useEffect(() => {
     if (promotion?.shows) {
@@ -43,11 +43,11 @@ export default function PromotionPage() {
 
   return (
     <>
-      <Card style={{ maxWidth: '100%', maxHeight: '23rem' }} className="promotionInfo">
+      <Card style={{ maxWidth: '100%', maxHeight: '40rem' }} className="promotionInfo">
         <div style={{ display: 'flex' }}>
           <CardMedia
             style={{
-              flex: '1 0 33%', maxHeight: '23rem', maxWidth: '50%', objectFit: 'contain',
+              flex: '1 0 33%', maxHeight: '40rem', maxWidth: '50%', objectFit: 'contain',
             }}
             component="img"
             image={promotion?.logo}
