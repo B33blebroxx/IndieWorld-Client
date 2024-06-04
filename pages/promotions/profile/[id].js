@@ -29,7 +29,7 @@ export default function PromotionPage() {
       setLoading(false);
     };
     fetchData();
-  }, [promotion.id, id, user]);
+  }, [promotion, id, user]);
 
   useEffect(() => {
     if (promotion?.shows) {

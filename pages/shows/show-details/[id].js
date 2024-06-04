@@ -1,20 +1,25 @@
 import { useContext, useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
 import {
+  Button,
   Card, CardContent, CardMedia, Stack, Typography,
 } from '@mui/material';
 import Loading from '../../../components/Loading';
 import { getAShowAndItsPerformers } from '../../../api/showApi';
 import { UserContext } from '../../../utils/context/authContext';
 import PerformerCard from '../../../components/Cards/PerformerCard';
+import { addPerformerToShow } from '../../../api/performerApi';
+import PerformerSelectionModal from '../../../components/Modals/PerformerSelectionModal';
 
 export default function ShowDetails() {
   const [showDetails, setShowDetails] = useState({});
   const [performers, setPerformers] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [showModal, setShowModal] = useState(false);
   const router = useRouter();
   const { id } = router.query;
   const { user } = useContext(UserContext);
+  const currentPerformers = performers.map((performer) => performer.id);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -24,23 +29,29 @@ export default function ShowDetails() {
       setLoading(false);
     };
     fetchData();
-    console.warn(user);
-  }, [id]);
+  }, [user, id, performers]);
+
+  const handleSave = (selectedPerformers) => {
+    selectedPerformers.forEach((performer) => {
+      addPerformerToShow(showDetails.id, performer);
+    });
+  };
 
   if (loading) {
     return <div><Loading /></div>;
   }
   return (
     <>
-      <Card style={{ maxWidth: '100%', maxHeight: '40rem' }} className="showInfo">
+      <Card style={{ maxWidth: 'contain', maxHeight: '40rem' }} className="showInfo">
         <div style={{ display: 'flex' }}>
           <CardMedia
             style={{
-              flex: '1 0 33%', maxHeight: '40rem', maxWidth: '50%', objectFit: 'contain',
+              flex: '1 0 33%', maxHeight: '40rem', maxWidth: '50%', objectFit: 'fill',
             }}
             component="img"
             image={showDetails?.showImage}
             alt="Show Logo"
+            className="CardMedia"
           />
           <CardContent style={{ flex: '1 0 50%', maxHeight: 'fit' }}>
             <Stack spacing={2}>
@@ -57,10 +68,7 @@ export default function ShowDetails() {
                 Location: {showDetails?.location}
               </Typography>
               <Typography variant="body1" component="div">
-                Door Price: {showDetails?.price}
-              </Typography>
-              <Typography variant="body1" component="div">
-                Description: {showDetails?.description}
+                Door Price: ${showDetails?.price}
               </Typography>
             </Stack>
           </CardContent>
@@ -71,6 +79,22 @@ export default function ShowDetails() {
       <div className="text-center">
         <h4>Performers:</h4>
       </div>
+      <br />
+      <br />
+      {user.promotionId === showDetails.promotionId && (
+        <Button type="button" variant="outlined" size="small" onClick={() => setShowModal(true)}>
+          Add Performers
+        </Button>
+      )}
+      <PerformerSelectionModal
+        open={showModal}
+        handleClose={() => setShowModal(false)}
+        performers={performers}
+        handleSave={handleSave}
+        currentPerformers={currentPerformers}
+      />
+      <br />
+      <br />
       <div className="performer-card-container">
         {performers.map((performer) => (
           <PerformerCard key={performer.id} performer={performer} />
