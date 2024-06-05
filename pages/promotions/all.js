@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { getAllPromotions } from '../../api/promotionApi';
 import PromotionCard from '../../components/Cards/PromotionCard';
 
-const AllPromotionsPage = () => {
+export default function AllPromotions() {
   const [promotions, setPromotions] = useState([]);
 
   useEffect(() => {
@@ -28,6 +28,4 @@ const AllPromotionsPage = () => {
       </div>
     </>
   );
-};
-
-export default AllPromotionsPage;
+}

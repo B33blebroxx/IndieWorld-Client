@@ -1,6 +1,7 @@
 import React from 'react';
 import {
-  Button, Drawer, List, ListItem, ListItemText,
+  Button,
+  Drawer, List, ListItem, ListItemText,
 } from '@mui/material';
 import MenuIcon from '@mui/icons-material/Menu';
 import { makeStyles } from '@mui/styles';
@@ -46,21 +47,26 @@ export default function NavBar() {
       >
         <List>
           <Link href="/" passHref>
-            <ListItem button>
+            <ListItem className="navLink" Button>
               <ListItemText primary="Home" />
             </ListItem>
           </Link>
           <Link href="/promotions/all" passHref>
-            <ListItem button>
+            <ListItem className="navLink" Button>
               <ListItemText primary="Promotions" />
             </ListItem>
           </Link>
           <Link href="/shows/all" passHref>
-            <ListItem button>
+            <ListItem className="navLink" Button>
               <ListItemText primary="Shows" />
             </ListItem>
           </Link>
-          <ListItem Button variant="outline-danger" onClick={signOut}>
+          <Link href="/performers/all" passHref>
+            <ListItem className="navLink" Button>
+              <ListItemText primary="Performers" />
+            </ListItem>
+          </Link>
+          <ListItem Button variant="outline-danger" className="navLink" onClick={signOut}>
             <ListItemText primary="Sign Out" />
           </ListItem>
           {/* Add more navigation links here */}

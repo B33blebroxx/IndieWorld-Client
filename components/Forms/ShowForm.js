@@ -1,5 +1,5 @@
 import { useRouter } from 'next/router';
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useContext, useState } from 'react';
 import PropTypes from 'prop-types';
 import {
   Box,
@@ -36,23 +36,21 @@ export default function ShowForm({ showObj, setShows }) {
 
   const handleClickOpen = (e) => {
     e.preventDefault();
-    setOpen(true);
-  };
-
-  const handleClose = () => {
-    setOpen(false);
-    if (showObj) setFormData(showObj);
-    else setFormData({ ...initialState });
-  };
-
-  useEffect(() => {
     if (showObj) {
       setFormData({
         ...showObj,
         showDate: showObj.showDate ? new Date(showObj.showDate) : null,
       });
+    } else {
+      setFormData({ ...initialState });
     }
-  }, [showObj, user]);
+    setOpen(true);
+  };
+
+  const handleClose = () => {
+    setOpen(false);
+    setFormData({ ...initialState });
+  };
 
   const handleChange = (event) => {
     const { name, value } = event.target;
@@ -68,7 +66,7 @@ export default function ShowForm({ showObj, setShows }) {
       ...formData,
       promotionId: user.promotionId,
     };
-    if (showObj.id) {
+    if (showObj?.id) {
       await updateShow(data).then(() => {
         setShows((prevShows) => prevShows.map((show) => (show.id === data.id ? data : show)));
         handleClose();
@@ -100,7 +98,7 @@ export default function ShowForm({ showObj, setShows }) {
   return (
     <div>
       <Button variant="contained" type="button" color="primary" onClick={handleClickOpen}>
-        {showObj.id ? 'Edit Show' : 'Add Show'}
+        {showObj?.id ? 'Edit Show' : 'Add Show'}
       </Button>
       <Dialog open={open} onClose={handleClose} aria-labelledby="form-dialog-title">
         <DialogTitle id="form-dialog-title"><Typography component="div" variant="h6" align="center">Show Form</Typography></DialogTitle>
@@ -140,8 +138,7 @@ export default function ShowForm({ showObj, setShows }) {
                         components={{
                           textField: TextField,
                         }}
-                      >{'>'}
-                      </DatePicker>
+                      />
                     </FormGroup>
                   </LocalizationProvider>
                   <br />

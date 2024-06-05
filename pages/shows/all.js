@@ -1,10 +1,9 @@
-import PropTypes from 'prop-types';
 import { useEffect, useState } from 'react';
 import { getAllShows } from '../../api/showApi';
 import ShowCard from '../../components/Cards/ShowCard';
 
-export default function Shows({ initialShows }) {
-  const [shows, setShows] = useState(initialShows || []);
+export default function AllShows() {
+  const [shows, setShows] = useState([]);
 
   useEffect(() => {
     const fetchShows = async () => {
@@ -15,10 +14,7 @@ export default function Shows({ initialShows }) {
         console.error('Error fetching shows:', error);
       }
     };
-
-    if (!initialShows) {
-      fetchShows();
-    }
+    fetchShows();
   }, []);
 
   return (
@@ -34,10 +30,3 @@ export default function Shows({ initialShows }) {
     </>
   );
 }
-
-Shows.propTypes = {
-  initialShows: PropTypes.string,
-};
-Shows.defaultProps = {
-  initialShows: null,
-};
