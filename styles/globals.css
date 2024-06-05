@@ -38,7 +38,7 @@ body {
 .form-wrapper .button-container {
   display: flex;
   justify-content: center;
-  margin-top: 20px; /* Optional: Add some margin above the button */
+  margin-top: 20px;
 }
 
 .form-wrapper button {
@@ -57,7 +57,6 @@ body {
 
 .promotion-card-name {
   text-align: center;
-  margin-bottom: 7%;
 }
 
 .promotionInfo {
@@ -84,6 +83,10 @@ body {
   align-items: center;
   flex-wrap: wrap;
   text-align: center;
+}
+
+.performer-card {
+  cursor: pointer;
 }
 
 .showInfo {

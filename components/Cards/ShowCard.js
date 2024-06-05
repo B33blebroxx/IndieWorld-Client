@@ -3,9 +3,12 @@
 import Link from 'next/link';
 import PropTypes from 'prop-types';
 import { useState } from 'react';
+import { Card } from '@mui/material';
 import ShowForm from '../Forms/ShowForm';
 
-export default function ShowCard({ show, userObj, setShows }) {
+export default function ShowCard({
+  show, userObj, setShows,
+}) {
   const [open, setOpen] = useState(false);
   const showWithDateObject = {
     ...show,
@@ -17,7 +20,7 @@ export default function ShowCard({ show, userObj, setShows }) {
   };
 
   return (
-    <div className="show-card">
+    <Card className="show-card m-2">
       <Link href={`/shows/show-details/${show.id}`}>
         <a>
           <img src={show.showImage} alt="Promotion Logo" width={395} height={275} />
@@ -27,8 +30,7 @@ export default function ShowCard({ show, userObj, setShows }) {
       {userObj && userObj?.promotionId === show.promotionId && (
       <ShowForm showObj={showWithDateObject} open={open} handleClose={handleClose} setShows={setShows} />
       )}
-      <br />
-    </div>
+    </Card>
   );
 }
 
