@@ -46,7 +46,7 @@ export default function PerformerSelectionModal({
                   control={<Checkbox checked={selectedPerformers.includes(performer.id)} onChange={() => handleSelect(performer.id)} />}
                   label={(
                     <div>
-                      <Image src={performer.imageUrl} alt={performer.ringName} width={60} height={75} rounded />
+                      <Image src={performer.image} alt={performer.ringName} width={60} height={75} rounded />
                       {`${performer.ringName} (${performer.role.title})`}
                     </div>
                   )}

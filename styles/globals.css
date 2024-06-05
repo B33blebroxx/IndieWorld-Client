@@ -104,3 +104,7 @@ body {
   object-fit: 'contain';
   margin-left: '-10%'; 
 }
+
+.navLink {
+  cursor: pointer;
+}

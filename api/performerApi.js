@@ -36,7 +36,8 @@ const getAllPerformers = async () => {
     throw new Error('Failed to fetch performers');
   }
 
-  return response.json();
+  const data = await response.json();
+  return data;
 };
 
 export {

@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import { Button, Stack } from '@mui/material';
+import Link from 'next/link';
 import { useAuth } from '../utils/context/authContext';
 import PromotionForm from '../components/Forms/PromotionForm';
 import { getPromotion } from '../api/promotionApi';
@@ -28,13 +29,11 @@ function Home() {
     >
       <h1>Hello {user.fbUser.displayName}! </h1>
       <br />
-      <div id="landing-page-buttons">
-        <Stack spacing={3}>
-          <PromotionForm promotionObj={promotion} />
-          <Button variant="contained" size="medium">Create Performer</Button>
-          <Button variant="contained" size="medium">Shows</Button>
-        </Stack>
-      </div>
+      <Stack spacing={2}>
+        <PromotionForm promotionObj={promotion} />
+        <Button variant="contained" style={{ width: '12rem' }}>Create Performer</Button>
+        <Link href="/shows/all" passHref><Button variant="contained" size="medium">Shows</Button></Link>
+      </Stack>
     </div>
   );
 }
