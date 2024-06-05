@@ -1,4 +1,4 @@
-import { Button } from '@mui/material';
+import { Card, Button } from '@mui/material';
 import Link from 'next/link';
 import PropTypes from 'prop-types';
 import { useContext } from 'react';
@@ -15,13 +15,13 @@ export default function PerformerCard({ performer, onRemove, showPromotionId }) 
   return (
     <div className="d-flex flex-column align-items-center mb-5">
       <Link href={`/performers/profile/${performer?.id}`} passHref>
-        <div className="performer-card">
+        <Card className="performer-card m-2">
           <Image src={performer?.image} style={{ height: '27rem', width: '19rem' }} alt="Performer Image" />
           <div className="performer-card-info">
             <h4>{performer?.ringName}</h4>
             <p>{performer?.role.title}</p>
           </div>
-        </div>
+        </Card>
       </Link>
       {showPromotionId === user.promotionId && (
         <div>

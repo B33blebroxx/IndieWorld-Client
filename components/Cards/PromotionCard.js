@@ -3,14 +3,15 @@
 import Link from 'next/link';
 import PropTypes from 'prop-types';
 import React from 'react';
+import { Card, Image } from 'react-bootstrap';
 
 function PromotionCard({ promotionName, logo, id }) {
   return (
-    <Link href={`/promotions/profile/${id}`}>
-      <a>
-        <img src={logo} alt="Promotion Logo" width={385} height={255} />
+    <Link href={`/promotions/profile/${id}`} passHref>
+      <Card className="promotion-card m-2">
+        <Image src={logo} alt="Promotion Logo" width={385} height={255} />
         <div className="promotion-card-name"><h4>{promotionName}</h4></div>
-      </a>
+      </Card>
     </Link>
   );
 }

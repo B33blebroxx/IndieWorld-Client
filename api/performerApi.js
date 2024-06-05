@@ -40,6 +40,16 @@ const getAllPerformers = async () => {
   return data;
 };
 
+const getAPerformerAndTheirShows = async (id) => {
+  const response = await fetch(`${endpoint}/performers/${id}/shows`);
+  if (!response.ok) {
+    throw new Error('Failed to fetch performer');
+  }
+
+  const data = await response.json();
+  return data;
+};
+
 export {
-  addPerformerToShow, getAllPerformers, removePerformerFromShow,
+  addPerformerToShow, getAllPerformers, removePerformerFromShow, getAPerformerAndTheirShows,
 };
