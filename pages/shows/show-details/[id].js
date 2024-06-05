@@ -8,7 +8,7 @@ import Loading from '../../../components/Loading';
 import { getAShowAndItsPerformers } from '../../../api/showApi';
 import { UserContext } from '../../../utils/context/authContext';
 import PerformerCard from '../../../components/Cards/PerformerCard';
-import { addPerformerToShow } from '../../../api/performerApi';
+import { addPerformerToShow, removePerformerFromShow } from '../../../api/performerApi';
 import PerformerSelectionModal from '../../../components/Modals/PerformerSelectionModal';
 
 export default function ShowDetails() {
@@ -35,6 +35,10 @@ export default function ShowDetails() {
     selectedPerformers.forEach((performer) => {
       addPerformerToShow(showDetails.id, performer);
     });
+  };
+
+  const handleRemove = (performerId) => {
+    removePerformerFromShow(showDetails.id, performerId);
   };
 
   if (loading) {
@@ -97,7 +101,7 @@ export default function ShowDetails() {
       <br />
       <div className="performer-card-container">
         {performers.map((performer) => (
-          <PerformerCard key={performer.id} performer={performer} />
+          <PerformerCard key={performer.id} performer={performer} onRemove={handleRemove} showPromotionId={showDetails.promotionId} userPromotionId={user.promotionId} />
         ))}
       </div>
     </>
