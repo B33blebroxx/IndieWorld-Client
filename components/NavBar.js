@@ -42,7 +42,7 @@ export default function NavBar() {
   return (
     <div>
       <Button onClick={handleDrawerToggle}>
-        <MenuIcon color="action" />
+        <MenuIcon className="nav-icon" />
       </Button>
       <Drawer
         className={classes.drawer}

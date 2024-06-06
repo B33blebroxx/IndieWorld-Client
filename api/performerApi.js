@@ -50,6 +50,51 @@ const getAPerformerAndTheirShows = async (id) => {
   return data;
 };
 
+const createPerformer = async (performerData) => {
+  const response = await fetch(`${endpoint}/performers`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(performerData),
+  });
+
+  if (!response.ok) {
+    throw new Error('Failed to create performer');
+  }
+
+  const data = await response.json();
+  return data;
+};
+
+const updatePerformer = async (performerData) => {
+  const response = await fetch(`${endpoint}/performers/${performerData.id}`, {
+    method: 'PUT',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(performerData),
+  });
+
+  if (!response.ok) {
+    throw new Error('Failed to update performer');
+  }
+
+  const data = await response.json();
+  return data;
+};
+
+const getAPerformer = async (id) => {
+  const response = await fetch(`${endpoint}/performers/${id}`);
+  if (!response.ok) {
+    throw new Error('Failed to fetch performer');
+  }
+
+  const data = await response.json();
+  return data;
+};
+
 export {
-  addPerformerToShow, getAllPerformers, removePerformerFromShow, getAPerformerAndTheirShows,
+  addPerformerToShow, getAllPerformers, removePerformerFromShow, getAPerformerAndTheirShows, createPerformer, updatePerformer,
+  getAPerformer,
 };

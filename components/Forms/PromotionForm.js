@@ -12,7 +12,6 @@ import {
   FormControl, FormGroup, FormHelperText, FormLabel, MenuItem, Select, TextField,
   Typography,
 } from '@mui/material';
-import { Form } from 'react-bootstrap';
 import Image from 'next/image';
 import { getUser, updateUserPromotion } from '../../api/userApi';
 import { useAuth } from '../../utils/context/authContext';
@@ -85,7 +84,7 @@ export default function PromotionForm({ promotionObj }) {
 
   return (
     <div>
-      <Button variant="contained" style={{ width: '12rem' }} color="primary" onClick={handleClickOpen}>
+      <Button style={{ width: '12rem', color: 'white' }} color="primary" onClick={handleClickOpen}>
         {promotionObj ? 'Edit Promotion' : 'Create Promotion'}
       </Button>
       <Dialog open={open} onClose={handleClose} aria-labelledby="form-dialog-title">
@@ -165,7 +164,13 @@ export default function PromotionForm({ promotionObj }) {
                   <br />
                   <FormGroup>
                     <FormLabel> <Typography component="div" variant="h7" color="textPrimary">Logo</Typography></FormLabel>
-                    <Form.Control type="file" accept="image/*" onChange={handleFileUpload} />
+                    <TextField
+                      name="image"
+                      type="file"
+                      onChange={handleFileUpload}
+                      required
+                      fullWidth
+                    />
                     {formData.logo && (
                     <div style={{
                       marginTop: '10px', marginLeft: '60px', width: '400px', height: '400px', position: 'relative',
