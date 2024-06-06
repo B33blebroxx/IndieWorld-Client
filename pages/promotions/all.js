@@ -20,7 +20,7 @@ export default function AllPromotions() {
 
   return (
     <>
-      <h2>All Promotions</h2>
+      <h2 style={{ textAlign: 'left', color: 'white', paddingBottom: '10px' }}>All Promotions</h2>
       <div className="card-container">
         {promotions.map((promotion) => (
           <PromotionCard key={promotion.id} id={promotion.id} promotion={promotion} promotionName={promotion.promotionName} logo={promotion.logo} />

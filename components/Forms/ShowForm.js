@@ -100,7 +100,11 @@ export default function ShowForm({ showObj, setShows }) {
       <Button variant="contained" type="button" color="primary" onClick={handleClickOpen}>
         {showObj?.id ? 'Edit Show' : 'Add Show'}
       </Button>
-      <Dialog open={open} onClose={handleClose} aria-labelledby="form-dialog-title">
+      <Dialog
+        open={open}
+        onClose={handleClose}
+        aria-labelledby="form-dialog-title"
+      >
         <DialogTitle id="form-dialog-title"><Typography component="div" variant="h6" align="center">Show Form</Typography></DialogTitle>
         <DialogContent style={{ width: '600px' }}>
           <Typography component="div" align="center">

@@ -94,7 +94,6 @@ const PerformerForm = ({ performerObj }) => {
     } else {
       await createPerformer(performerData).then((newPerformer) => {
         getUser(user.id).then(() => updateUserPerformer(user.id, newPerformer.id)).then(() => window.location.reload());
-        console.log('user', user, 'performerData', performerData);
       });
     }
   };

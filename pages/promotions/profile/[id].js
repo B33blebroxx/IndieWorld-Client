@@ -37,39 +37,37 @@ export default function PromotionPage() {
 
   return (
     <>
-      <Card style={{ maxWidth: '100%', maxHeight: '40rem' }} className="promotionInfo">
-        <div style={{ display: 'flex' }}>
-          <CardMedia
-            style={{
-              flex: '1 0 33%', maxHeight: '40rem', maxWidth: '50%', objectFit: 'contain',
-            }}
-            component="img"
-            image={promotion?.logo}
-            alt="Promotion Logo"
-          />
-          <CardContent style={{ flex: '1 0 50%', maxHeight: 'fit' }}>
-            <Stack spacing={2}>
-              <Typography variant="h5" component="div">
-                {promotion?.promotionName} ({promotion?.acronym})
-              </Typography>
-              <Typography variant="body1" component="div">
-                Based out of {promotion?.hq}
-              </Typography>
-              <Typography variant="body1" component="div">
-                Est. in {promotion?.established}
-              </Typography>
-              <Typography variant="body1" component="div">
-                Owned By: {promotion?.owner}
-              </Typography>
-              <Typography variant="body1" component="div">
-                Show Frequency: {promotion?.showFrequency}
-              </Typography>
-              <Typography variant="body1" component="div">
-                {promotion?.description}
-              </Typography>
-            </Stack>
-          </CardContent>
-        </div>
+      <Card className="promotionInfo">
+        <CardMedia
+          style={{
+            maxHeight: '25rem', maxWidth: '50%', objectFit: 'fill',
+          }}
+          component="img"
+          image={promotion?.logo}
+          alt="Promotion Logo"
+        />
+        <CardContent style={{ flex: '1 0 50%', maxHeight: 'fit' }}>
+          <Stack spacing={2}>
+            <Typography variant="h5" component="div">
+              {promotion?.promotionName} ({promotion?.acronym})
+            </Typography>
+            <Typography variant="body1" component="div">
+              Based out of {promotion?.hq}
+            </Typography>
+            <Typography variant="body1" component="div">
+              Est. in {promotion?.established}
+            </Typography>
+            <Typography variant="body1" component="div">
+              Owned By: {promotion?.owner}
+            </Typography>
+            <Typography variant="body1" component="div">
+              Show Frequency: {promotion?.showFrequency}
+            </Typography>
+            <Typography variant="body1" component="div">
+              {promotion?.description}
+            </Typography>
+          </Stack>
+        </CardContent>
       </Card>
       <br />
       <br />

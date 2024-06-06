@@ -1,13 +1,16 @@
 import { useEffect, useState } from 'react';
 import {
   Button, Card, Stack,
+  Typography,
 } from '@mui/material';
 import Link from 'next/link';
+import Image from 'next/image';
 import { useAuth } from '../utils/context/authContext';
 import PromotionForm from '../components/Forms/PromotionForm';
 import PerformerForm from '../components/Forms/PerformerForm';
 import { getPromotion } from '../api/promotionApi';
 import { getAPerformer } from '../api/performerApi';
+import logo from '../utils/data/IndieWorldLogoNoBackground.png';
 
 function Home() {
   const { user } = useAuth();
@@ -36,15 +39,9 @@ function Home() {
     <Card
       id="home-card"
       className="text-center d-flex flex-column justify-content-center align-content-center"
-      style={{
-        height: '40rem',
-        padding: '30px',
-        width: '30rem',
-        margin: '0 auto',
-        marginTop: '10rem',
-      }}
     >
-      <h1>Hello {user.fbUser.displayName}! </h1>
+      <Image id="logo" src={logo} objectFit="contain" height={300} width={300} alt="Indie World Logo" />
+      <Typography variant="h4" color="white">{user.fbUser.displayName}<br /> Welcome To Indie World </Typography>
       <br />
       <Stack spacing={2}>
         {/* ButtonGroup for actions */}

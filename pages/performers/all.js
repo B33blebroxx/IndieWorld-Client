@@ -20,7 +20,7 @@ export default function AllPerformers() {
 
   return (
     <>
-      <h2>All Performers</h2>
+      <h2 style={{ textAlign: 'left', color: 'white', paddingBottom: '10px' }}>All Performers</h2>
       <div className="card-container">
         {performers.map((performer) => (
           <PerformerCard key={performer.id} performer={performer} />
