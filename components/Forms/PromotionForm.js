@@ -132,7 +132,6 @@ export default function PromotionForm({ promotionObj }) {
                       variant="filled"
                       type="text"
                       multiline
-                      rows={3}
                       maxRows={6}
                       name="description"
                       value={formData.description}

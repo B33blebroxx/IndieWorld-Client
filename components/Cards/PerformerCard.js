@@ -19,7 +19,7 @@ export default function PerformerCard({ performer, onRemove, showPromotionId }) 
           <Image src={performer?.image} style={{ height: '27rem', width: '19rem' }} alt="Performer Image" />
           <div className="performer-card-info">
             <h4>{performer?.ringName}</h4>
-            <p>{performer?.role.title}</p>
+            <p>{performer?.role}</p>
           </div>
         </Card>
       </Link>
@@ -37,10 +37,7 @@ PerformerCard.propTypes = {
   performer: PropTypes.shape({
     id: PropTypes.number.isRequired,
     ringName: PropTypes.string.isRequired,
-    role: PropTypes.shape({
-      id: PropTypes.number.isRequired,
-      title: PropTypes.string.isRequired,
-    }).isRequired,
+    role: PropTypes.string.isRequired,
     image: PropTypes.string.isRequired,
   }).isRequired,
   onRemove: PropTypes.func.isRequired,
