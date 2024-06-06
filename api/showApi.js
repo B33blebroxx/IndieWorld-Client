@@ -32,6 +32,16 @@ const updateShow = async (promotionData) => {
   return response.json();
 };
 
+const deleteShow = async (id) => {
+  const response = await fetch(`${endpoint}/shows/${id}`, {
+    method: 'DELETE',
+  });
+
+  if (!response.ok) {
+    throw new Error('Failed to delete promotion');
+  }
+};
+
 const getAllShows = async () => {
   const response = await fetch(`${endpoint}/shows`);
   if (!response.ok) {
@@ -51,5 +61,5 @@ const getAShowAndItsPerformers = async (id) => {
 };
 
 export {
-  createShow, updateShow, getAllShows, getAShowAndItsPerformers,
+  createShow, updateShow, getAllShows, getAShowAndItsPerformers, deleteShow,
 };
