@@ -33,12 +33,17 @@ export default function PerformerCard({ performer, onRemove, showPromotionId }) 
 }
 
 PerformerCard.propTypes = {
-  showPromotionId: PropTypes.number.isRequired,
+  showPromotionId: PropTypes.number,
   performer: PropTypes.shape({
     id: PropTypes.number.isRequired,
     ringName: PropTypes.string.isRequired,
     role: PropTypes.string.isRequired,
     image: PropTypes.string.isRequired,
   }).isRequired,
-  onRemove: PropTypes.func.isRequired,
+  onRemove: PropTypes.func,
+};
+
+PerformerCard.defaultProps = {
+  onRemove: null,
+  showPromotionId: null,
 };

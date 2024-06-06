@@ -48,9 +48,18 @@ export default function PerformerProfile() {
                 {performer?.ringName}
               </Typography>
               <Typography variant="body1" component="div">
-                Role: {performer?.role?.title}
+                Hometown: {performer?.hometown}
               </Typography>
-              <Typography variant="body2" component="div">
+              <Typography variant="body1" component="div">
+                Role: {performer?.role}
+              </Typography>
+              <Typography variant="body1" component="div">
+                Accolades: {performer?.accolades}
+              </Typography>
+              <Typography variant="body1" component="div">
+                Status: {performer?.active ? 'Active' : 'Inactive'}
+              </Typography>
+              <Typography variant="body1" component="div">
                 Bio: {performer?.bio}
               </Typography>
             </Stack>
