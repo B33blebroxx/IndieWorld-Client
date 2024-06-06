@@ -2,7 +2,7 @@ import { Card, Button } from '@mui/material';
 import Link from 'next/link';
 import PropTypes from 'prop-types';
 import { useContext } from 'react';
-import { Image } from 'react-bootstrap';
+import { CardFooter, Image } from 'react-bootstrap';
 import { UserContext } from '../../utils/context/authContext';
 
 export default function PerformerCard({ performer, onRemove, showPromotionId }) {
@@ -17,10 +17,10 @@ export default function PerformerCard({ performer, onRemove, showPromotionId }) 
       <Link href={`/performers/profile/${performer?.id}`} passHref>
         <Card className="performer-card m-2">
           <Image src={performer?.image} style={{ height: '27rem', width: '19rem' }} alt="Performer Image" />
-          <div className="performer-card-info">
+          <CardFooter className="performer-card-info">
             <h4>{performer?.ringName}</h4>
             <p>{performer?.role}</p>
-          </div>
+          </CardFooter>
         </Card>
       </Link>
       {showPromotionId === user.promotionId && (

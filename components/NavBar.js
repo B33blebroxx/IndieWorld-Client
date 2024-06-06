@@ -7,20 +7,23 @@ import {
 import MenuIcon from '@mui/icons-material/Menu';
 import { makeStyles } from '@mui/styles';
 import Link from 'next/link';
+import Image from 'next/image';
+import smallLogo from '../utils/data/IndieWorldLogoNoBackground.png';
 import { signOut } from '../utils/auth';
 
 const useStyles = makeStyles(() => ({
   drawer: {
-    width: 320,
+    width: 300,
   },
   button: {
-    fontSize: '1.2rem', // Bigger font
+    fontSize: '1.2rem',
     fontWeight: 'bold',
-    color: '#fff',
+    color: 'white',
   },
   drawerPaper: {
-    width: 320,
+    width: 300,
     backgroundColor: '#333',
+    opacity: 0.8,
   },
   drawerContainer: {
     overflow: 'auto',
@@ -54,6 +57,7 @@ export default function NavBar() {
           paper: classes.drawerPaper,
         }}
       >
+        <Image id="small-logo" quality={100} src={smallLogo} objectFit="contain" alt="Indie World Logo" />
         <Stack spacing={3} direction="column" style={{ padding: '1rem' }}>
           <Link href="/" passHref>
             <Button className={`${classes.button} navLink`}>

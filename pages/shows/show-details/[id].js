@@ -46,37 +46,33 @@ export default function ShowDetails() {
   }
   return (
     <>
-      <Card style={{ maxWidth: 'contain', maxHeight: '40rem' }} className="showInfo">
-        <div style={{ display: 'flex' }}>
-          <CardMedia
-            style={{
-              flex: '1 0 33%', maxHeight: '40rem', maxWidth: '50%', objectFit: 'fill',
-            }}
-            component="img"
-            image={showDetails?.showImage}
-            alt="Show Logo"
-            className="CardMedia"
-          />
-          <CardContent style={{ flex: '1 0 50%', maxHeight: 'fit' }}>
-            <Stack spacing={2}>
-              <Typography variant="h5" component="div">
-                {showDetails?.showName}
-              </Typography>
-              <Typography variant="body1" component="div">
-                Date: {showDetails?.showDate}
-              </Typography>
-              <Typography variant="body1" component="div">
-                Time: {showDetails?.showTime}
-              </Typography>
-              <Typography variant="body1" component="div">
-                Location: {showDetails?.location}
-              </Typography>
-              <Typography variant="body1" component="div">
-                Door Price: ${showDetails?.price}
-              </Typography>
-            </Stack>
-          </CardContent>
-        </div>
+      <Card className="showInfo">
+        <CardMedia
+          style={{ maxWidth: '50%', objectFit: 'fill' }}
+          component="img"
+          image={showDetails?.showImage}
+          alt="Show Logo"
+          className="CardMedia"
+        />
+        <CardContent style={{ flex: '1 0 50%', maxHeight: 'fit' }}>
+          <Stack spacing={2}>
+            <Typography variant="h5" component="div">
+              {showDetails?.showName}
+            </Typography>
+            <Typography variant="body1" component="div">
+              Date: {showDetails?.showDate}
+            </Typography>
+            <Typography variant="body1" component="div">
+              Time: {showDetails?.showTime}
+            </Typography>
+            <Typography variant="body1" component="div">
+              Location: {showDetails?.location}
+            </Typography>
+            <Typography variant="body1" component="div">
+              Door Price: ${showDetails?.price}
+            </Typography>
+          </Stack>
+        </CardContent>
       </Card>
       <br />
       <br />

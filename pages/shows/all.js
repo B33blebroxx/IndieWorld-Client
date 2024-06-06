@@ -20,7 +20,7 @@ export default function AllShows() {
   return (
     <>
       <div>
-        <h2>All Shows</h2>
+        <h2 style={{ textAlign: 'left', color: 'white', paddingBottom: '10px' }}>All Shows</h2>
       </div>
       <div className="card-container">
         {shows.map((show) => (
