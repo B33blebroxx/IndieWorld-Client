@@ -29,13 +29,7 @@ export default function PromotionPage() {
       setLoading(false);
     };
     fetchData();
-  }, [promotion, id, user]);
-
-  useEffect(() => {
-    if (promotion?.shows) {
-      setShows(promotion.shows);
-    }
-  }, [promotion]);
+  }, [id, promotion?.id, user.promotionId]);
 
   if (loading) {
     return <div><Loading /></div>;

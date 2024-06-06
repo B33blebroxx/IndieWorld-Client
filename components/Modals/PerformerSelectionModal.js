@@ -47,7 +47,7 @@ export default function PerformerSelectionModal({
                   label={(
                     <div>
                       <Image src={performer.image} alt={performer.ringName} width={60} height={75} rounded />
-                      {`${performer.ringName} (${performer.role.title})`}
+                      {`${performer.ringName} (${performer.role})`}
                     </div>
                   )}
                 />

@@ -1,7 +1,8 @@
 import React from 'react';
 import {
   Button,
-  Drawer, List, ListItem, ListItemText,
+  Drawer,
+  Stack,
 } from '@mui/material';
 import MenuIcon from '@mui/icons-material/Menu';
 import { makeStyles } from '@mui/styles';
@@ -12,8 +13,14 @@ const useStyles = makeStyles(() => ({
   drawer: {
     width: 320,
   },
+  button: {
+    fontSize: '1.2rem', // Bigger font
+    fontWeight: 'bold',
+    color: '#fff',
+  },
   drawerPaper: {
     width: 320,
+    backgroundColor: '#333',
   },
   drawerContainer: {
     overflow: 'auto',
@@ -34,7 +41,9 @@ export default function NavBar() {
 
   return (
     <div>
-      <Button onClick={handleDrawerToggle}><MenuIcon /></Button>
+      <Button onClick={handleDrawerToggle}>
+        <MenuIcon color="action" />
+      </Button>
       <Drawer
         className={classes.drawer}
         variant="temporary"
@@ -45,32 +54,32 @@ export default function NavBar() {
           paper: classes.drawerPaper,
         }}
       >
-        <List>
+        <Stack spacing={3} direction="column" style={{ padding: '1rem' }}>
           <Link href="/" passHref>
-            <ListItem className="navLink" Button>
-              <ListItemText primary="Home" />
-            </ListItem>
+            <Button className={`${classes.button} navLink`}>
+              Home
+            </Button>
           </Link>
           <Link href="/promotions/all" passHref>
-            <ListItem className="navLink" Button>
-              <ListItemText primary="Promotions" />
-            </ListItem>
+            <Button className={`${classes.button} navLink`}>
+              Promotions
+            </Button>
           </Link>
           <Link href="/shows/all" passHref>
-            <ListItem className="navLink" Button>
-              <ListItemText primary="Shows" />
-            </ListItem>
+            <Button className={`${classes.button} navLink`}>
+              All Shows
+            </Button>
           </Link>
           <Link href="/performers/all" passHref>
-            <ListItem className="navLink" Button>
-              <ListItemText primary="Performers" />
-            </ListItem>
+            <Button className={`${classes.button} navLink`}>
+              Performers
+            </Button>
           </Link>
-          <ListItem Button variant="outline-danger" className="navLink" onClick={signOut}>
-            <ListItemText primary="Sign Out" />
-          </ListItem>
+          <Button className={`${classes.button} navLink`} onClick={signOut}>
+            Sign Out
+          </Button>
           {/* Add more navigation links here */}
-        </List>
+        </Stack>
       </Drawer>
     </div>
   );

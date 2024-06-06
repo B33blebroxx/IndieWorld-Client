@@ -66,7 +66,7 @@ export default function PerformerProfile() {
       <br />
       <div className="card-container d-flex flex-wrap justify-content-center">
         {shows.map((show) => (
-          <ShowCard key={show.id} show={show} />
+          <ShowCard key={show.id} show={show} setShows={setShows} />
         ))}
       </div>
     </>

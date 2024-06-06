@@ -19,7 +19,7 @@ a {
 }
 
 body {
-  background-color: #88effd;
+  background-color: #373737;
 }
 
 .form-container {
@@ -106,8 +106,4 @@ body {
   max-width: '70%'; 
   object-fit: 'contain';
   margin-left: '-10%'; 
-}
-
-.navLink {
-  cursor: pointer;
 }

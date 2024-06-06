@@ -23,7 +23,7 @@ export default function ShowCard({
     <Card className="show-card m-2">
       <Link href={`/shows/show-details/${show.id}`}>
         <a>
-          <img src={show.showImage} alt="Promotion Logo" width={395} height={275} />
+          <img src={show.showImage} alt="Promotion Logo" width={445} height={275} />
           <div className="promotion-card-name"><h4>{show.showName}</h4></div>
         </a>
       </Link>
@@ -43,10 +43,15 @@ ShowCard.propTypes = {
     location: PropTypes.string.isRequired,
     price: PropTypes.number.isRequired,
     showImage: PropTypes.string.isRequired,
-    promotionId: PropTypes.number.isRequired,
-  }).isRequired,
+    promotionId: PropTypes.number,
+  }),
   setShows: PropTypes.func.isRequired,
   userObj: PropTypes.shape({
     promotionId: PropTypes.number.isRequired,
-  }).isRequired,
+  }),
+};
+
+ShowCard.defaultProps = {
+  show: null,
+  userObj: null,
 };
