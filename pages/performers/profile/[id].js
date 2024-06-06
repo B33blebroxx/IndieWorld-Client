@@ -1,7 +1,7 @@
 import { useContext, useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
 import {
-  Card, CardContent, CardMedia, Typography,
+  Card, CardContent, CardMedia, Divider, Typography,
 } from '@mui/material';
 import { Stack } from 'react-bootstrap';
 import { UserContext } from '../../../utils/context/authContext';
@@ -31,35 +31,45 @@ export default function PerformerProfile() {
   }
   return (
     <>
-      <Card style={{ maxWidth: 'contain', maxHeight: '40rem' }} className="performerInfo">
+      <Card style={{ maxWidth: 'contain', height: '25rem' }} className="performerInfo">
         <div style={{ display: 'flex' }}>
           <CardMedia
             style={{
-              flex: '1 0 33%', maxHeight: '40rem', maxWidth: '50%', objectFit: 'fill',
+              width: '300px',
+              height: '25rem', // fixed height
+              objectFit: 'fill',
             }}
             component="img"
             image={performer?.image}
             alt="Performer Image"
             className="CardMedia"
           />
-          <CardContent style={{ flex: '1 0 50%', maxHeight: 'fit' }}>
+          <CardContent style={{
+            flex: '1 0 50%', overflowY: 'auto', maxHeight: '25rem', margin: 0, padding: 0,
+          }}
+          >
             <Stack spacing={2}>
-              <Typography variant="h5" component="div">
+              <Typography variant="h4" component="div" align="center" style={{ color: 'white' }}>
                 {performer?.ringName}
               </Typography>
-              <Typography variant="body1" component="div">
+              <Divider orientation="horizontal" variant="middle" style={{ backgroundColor: 'lightgrey' }} flexItem />
+              <Typography variant="h5" component="div" align="center" style={{ color: 'white' }}>
                 Hometown: {performer?.hometown}
               </Typography>
-              <Typography variant="body1" component="div">
+              <Divider orientation="horizontal" variant="middle" style={{ backgroundColor: 'lightgrey' }} flexItem />
+              <Typography variant="h5" component="div" align="center" style={{ color: 'white' }}>
                 Role: {performer?.role}
               </Typography>
-              <Typography variant="body1" component="div">
+              <Divider orientation="horizontal" variant="middle" style={{ backgroundColor: 'lightgrey' }} flexItem />
+              <Typography variant="h5" component="div" align="center" style={{ color: 'white' }}>
                 Accolades: {performer?.accolades}
               </Typography>
-              <Typography variant="body1" component="div">
+              <Divider orientation="horizontal" variant="middle" style={{ backgroundColor: 'lightgrey' }} flexItem />
+              <Typography variant="h5" component="div" align="center" style={{ color: 'white' }}>
                 Status: {performer?.active ? 'Active' : 'Inactive'}
               </Typography>
-              <Typography variant="body1" component="div">
+              <Divider orientation="horizontal" variant="middle" style={{ backgroundColor: 'lightgrey' }} flexItem />
+              <Typography variant="h5" component="div" align="center" style={{ color: 'white' }}>
                 Bio: {performer?.bio}
               </Typography>
             </Stack>
@@ -69,7 +79,7 @@ export default function PerformerProfile() {
       <br />
       <br />
       <div className="text-center">
-        <h4>Shows:</h4>
+        <h4 style={{ color: 'grey' }}>Upcoming Shows:</h4>
       </div>
       <br />
       <br />
