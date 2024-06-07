@@ -31,11 +31,11 @@ export default function PerformerProfile() {
   }
   return (
     <>
-      <Card style={{ maxWidth: 'contain', height: '25rem' }} className="performerInfo">
+      <Card style={{ maxWidth: '80rem', height: '25rem' }} className="performerInfo">
         <div style={{ display: 'flex' }}>
           <CardMedia
             style={{
-              width: '300px',
+              maxWidth: '25%',
               height: '25rem', // fixed height
               objectFit: 'fill',
             }}
@@ -49,27 +49,27 @@ export default function PerformerProfile() {
           }}
           >
             <Stack spacing={2}>
-              <Typography variant="h4" component="div" align="center" style={{ color: 'white' }}>
+              <Typography className="font" variant="h4" component="div" align="center" style={{ color: 'white' }}>
                 {performer?.ringName}
               </Typography>
               <Divider orientation="horizontal" variant="middle" style={{ backgroundColor: 'lightgrey' }} flexItem />
-              <Typography variant="h5" component="div" align="center" style={{ color: 'white' }}>
+              <Typography className="font" variant="h5" component="div" align="center" style={{ color: 'white' }}>
                 Hometown: {performer?.hometown}
               </Typography>
               <Divider orientation="horizontal" variant="middle" style={{ backgroundColor: 'lightgrey' }} flexItem />
-              <Typography variant="h5" component="div" align="center" style={{ color: 'white' }}>
+              <Typography className="font" variant="h5" component="div" align="center" style={{ color: 'white' }}>
                 Role: {performer?.role}
               </Typography>
               <Divider orientation="horizontal" variant="middle" style={{ backgroundColor: 'lightgrey' }} flexItem />
-              <Typography variant="h5" component="div" align="center" style={{ color: 'white' }}>
+              <Typography className="font" variant="h5" component="div" align="center" style={{ color: 'white' }}>
                 Accolades: {performer?.accolades}
               </Typography>
               <Divider orientation="horizontal" variant="middle" style={{ backgroundColor: 'lightgrey' }} flexItem />
-              <Typography variant="h5" component="div" align="center" style={{ color: 'white' }}>
+              <Typography className="font" variant="h5" component="div" align="center" style={{ color: 'white' }}>
                 Status: {performer?.active ? 'Active' : 'Inactive'}
               </Typography>
               <Divider orientation="horizontal" variant="middle" style={{ backgroundColor: 'lightgrey' }} flexItem />
-              <Typography variant="h5" component="div" align="center" style={{ color: 'white' }}>
+              <Typography className="font" variant="h5" component="div" align="center" style={{ color: 'white' }}>
                 Bio: {performer?.bio}
               </Typography>
             </Stack>

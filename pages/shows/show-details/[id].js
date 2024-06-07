@@ -2,7 +2,7 @@ import { useContext, useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
 import {
   Button,
-  Card, CardContent, CardMedia, Stack, Typography,
+  Card, CardContent, CardMedia, Divider, Stack, Typography,
 } from '@mui/material';
 import Loading from '../../../components/Loading';
 import { getAShowAndItsPerformers } from '../../../api/showApi';
@@ -48,27 +48,31 @@ export default function ShowDetails() {
     <>
       <Card className="showInfo">
         <CardMedia
-          style={{ maxWidth: '50%', objectFit: 'fill' }}
+          style={{ width: '50%', height: '25rem', objectFit: 'fill' }}
           component="img"
           image={showDetails?.showImage}
           alt="Show Logo"
           className="CardMedia"
         />
-        <CardContent style={{ flex: '1 0 50%', maxHeight: 'fit' }}>
+        <CardContent style={{ flex: '1 0 50%', overflowY: 'auto', maxHeight: '25rem' }}>
           <Stack spacing={2}>
-            <Typography variant="h5" component="div">
+            <Typography className="font" variant="h5" component="div">
               {showDetails?.showName}
             </Typography>
-            <Typography variant="body1" component="div">
+            <Divider orientation="horizontal" variant="middle" style={{ backgroundColor: 'lightgrey' }} flexItem />
+            <Typography className="font" variant="body1" component="div">
               Date: {showDetails?.showDate}
             </Typography>
-            <Typography variant="body1" component="div">
+            <Divider orientation="horizontal" variant="middle" style={{ backgroundColor: 'lightgrey' }} flexItem />
+            <Typography className="font" variant="body1" component="div">
               Time: {showDetails?.showTime}
             </Typography>
-            <Typography variant="body1" component="div">
+            <Divider orientation="horizontal" variant="middle" style={{ backgroundColor: 'lightgrey' }} flexItem />
+            <Typography className="font" variant="body1" component="div">
               Location: {showDetails?.location}
             </Typography>
-            <Typography variant="body1" component="div">
+            <Divider orientation="horizontal" variant="middle" style={{ backgroundColor: 'lightgrey' }} flexItem />
+            <Typography className="font" variant="body1" component="div">
               Door Price: ${showDetails?.price}
             </Typography>
           </Stack>
@@ -77,12 +81,12 @@ export default function ShowDetails() {
       <br />
       <br />
       <div className="text-center">
-        <h4>Performers:</h4>
+        <h4 style={{ textAlign: 'left', color: 'white' }}>Performers:</h4>
       </div>
       <br />
       <br />
       {user.promotionId === showDetails.promotionId && (
-        <Button type="button" variant="outlined" size="small" onClick={() => setShowModal(true)}>
+        <Button className="font" type="button" variant="outlined" size="small" onClick={() => setShowModal(true)}>
           Add Performers
         </Button>
       )}

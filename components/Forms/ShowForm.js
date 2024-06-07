@@ -97,7 +97,7 @@ export default function ShowForm({ showObj, setShows }) {
 
   return (
     <div>
-      <Button variant="contained" type="button" color="primary" onClick={handleClickOpen}>
+      <Button className="font" variant="contained" type="button" color="primary" onClick={handleClickOpen}>
         {showObj?.id ? 'Edit Show' : 'Add Show'}
       </Button>
       <Dialog

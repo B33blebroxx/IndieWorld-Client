@@ -19,6 +19,7 @@ const useStyles = makeStyles(() => ({
     fontSize: '1.2rem',
     fontWeight: 'bold',
     color: 'white',
+    fontFamily: 'Gemunu Libre',
   },
   drawerPaper: {
     width: 300,
