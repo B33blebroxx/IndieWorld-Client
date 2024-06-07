@@ -84,7 +84,7 @@ export default function PromotionForm({ promotionObj }) {
 
   return (
     <div>
-      <Button style={{ width: '12rem', color: 'white' }} color="primary" onClick={handleClickOpen}>
+      <Button className="font" style={{ width: '12rem', color: 'white' }} color="primary" onClick={handleClickOpen}>
         {promotionObj ? 'Edit Promotion' : 'Create Promotion'}
       </Button>
       <Dialog open={open} onClose={handleClose} aria-labelledby="form-dialog-title">

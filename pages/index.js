@@ -38,14 +38,14 @@ function Home() {
   return (
     <Card
       id="home-card"
-      className="text-center d-flex flex-column justify-content-center align-content-center"
+      className="font text-center d-flex flex-column justify-content-center align-content-center"
     >
       <Image id="logo" src={logo} objectFit="contain" height={300} width={300} alt="Indie World Logo" />
-      <Typography variant="h4" color="white">{user.fbUser.displayName}<br /> Welcome To Indie World </Typography>
+      <Typography className="font" variant="h4" color="white">{user.fbUser.displayName}<br /> Welcome To Indie World </Typography>
       <br />
       <Stack spacing={2}>
         {/* ButtonGroup for actions */}
-        <Link href="/shows/all" passHref><Button style={{ color: 'white' }}>Shows</Button></Link>
+        <Link href="/shows/all" passHref><Button className="font" style={{ color: 'white' }}>Shows</Button></Link>
         <PromotionForm open={openPromotionForm} onClose={() => setOpenPromotionForm(false)} promotionObj={promotion} />
         <PerformerForm open={openPerformerForm} onClose={() => setOpenPerformerForm(false)} performerObj={performer} />
       </Stack>

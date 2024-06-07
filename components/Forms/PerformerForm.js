@@ -100,7 +100,7 @@ const PerformerForm = ({ performerObj }) => {
 
   return (
     <div>
-      <Button style={{ color: 'white' }} onClick={handleClickOpen}>
+      <Button className="font" style={{ color: 'white' }} onClick={handleClickOpen}>
         {user.performerId ? 'Edit Performer' : 'Create Performer'}
       </Button>
       <Dialog open={open} onClose={handleClose} aria-labelledby="form-dialog-title">

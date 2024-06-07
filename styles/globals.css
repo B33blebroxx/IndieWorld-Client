@@ -1,12 +1,11 @@
 @import 'bootstrap/dist/css/bootstrap.css';
+@import url('https://fonts.googleapis.com/css2?family=Gemunu+Libre:wght@200..800&display=swap');
 
 
 html,
 body {
-  padding: 0;
-  margin: 0;
-  font-family: Roboto, -apple-system, BlinkMacSystemFont, Segoe UI, Oxygen,
-    Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
+  font-family: "Gemunu Libre", -apple-system, BlinkMacSystemFont, Segoe UI, Oxygen,
+    Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif !important;
 }
 
 a {
@@ -24,6 +23,11 @@ body {
   background-repeat: no-repeat;
   background-size: cover;
   background-attachment: fixed;
+}
+
+.font {
+  font-family: "Gemunu Libre", -apple-system, BlinkMacSystemFont, Segoe UI, Oxygen,
+    Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif !important;
 }
 
 .nav-icon {
@@ -159,6 +163,7 @@ object-position: center;
   -webkit-backdrop-filter: blur( 10px );
   border-radius: 10px;
   border: 1px solid rgba( 255, 255, 255, 0.18 );
+  
 }
 
 .performer-card-info {

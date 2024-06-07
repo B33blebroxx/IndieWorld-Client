@@ -25,7 +25,7 @@ export default function PerformerCard({ performer, onRemove, showPromotionId }) 
       </Link>
       {showPromotionId === user.promotionId && (
         <div>
-          <Button variant="outlined" color="error" onClick={handleRemove}>Remove Performer</Button>
+          <Button className="font" variant="outlined" color="error" onClick={handleRemove}>Remove Performer</Button>
         </div>
       )}
     </div>
