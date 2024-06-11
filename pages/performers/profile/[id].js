@@ -2,15 +2,15 @@ import { useContext, useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
 import { Typography } from '@mui/material';
 import { UserContext } from '../../../utils/context/authContext';
+import { getAPerformerAndTheirPics, deletePerformerPic } from '../../../api/performerPicApi';
 import { getAPerformerAndTheirShows } from '../../../api/performerApi';
-import { getAPerformerAndTheirPics } from '../../../api/performerPicApi';
 import Loading from '../../../components/Loading';
 import PerformerInfoCard from '../../../components/Cards/PerformerInfoCard';
 import ViewModeToggle from '../../../components/Buttons/ViewModeToggle';
 import ViewShows from '../../../components/Views/ViewShows';
 import PromotionPics from '../../../components/Views/PastShowPics';
 import ImageModal from '../../../components/Modals/ImageModal';
-import PerformerPicForm from '../../../components/Forms/PerformerPicForm'; // Import the form
+import PerformerPicForm from '../../../components/Forms/PerformerPicForm';
 
 export default function PerformerProfile() {
   const [performer, setPerformer] = useState(null);
@@ -21,6 +21,7 @@ export default function PerformerProfile() {
   const [performerPics, setPerformerPics] = useState([]);
   const [selectedImage, setSelectedImage] = useState(null);
   const [openModal, setOpenModal] = useState(false);
+  const [selectedPic, setSelectedPic] = useState({});
   const router = useRouter();
   const { id } = router.query;
 
@@ -52,14 +53,22 @@ export default function PerformerProfile() {
     }
   };
 
-  const handleImageClick = (image) => {
-    setSelectedImage(image);
+  const handleImageClick = (pic) => {
+    setSelectedImage(pic.image);
+    setSelectedPic(pic);
     setOpenModal(true);
   };
 
   const handleCloseModal = () => {
     setOpenModal(false);
     setSelectedImage(null);
+    setSelectedPic({});
+  };
+
+  const handleDeleteImage = async () => {
+    await deletePerformerPic(selectedPic.id);
+    setPerformerPics((prevPics) => prevPics.filter((pic) => pic.id !== selectedPic.id));
+    handleCloseModal();
   };
 
   if (loading) {
@@ -95,7 +104,15 @@ export default function PerformerProfile() {
           </Typography>
         </div>
       )}
-      <ImageModal openModal={openModal} handleCloseModal={handleCloseModal} selectedImage={selectedImage} />
+      <ImageModal
+        openModal={openModal}
+        handleCloseModal={handleCloseModal}
+        selectedImage={selectedImage}
+        showName={selectedPic.showName}
+        showDate={selectedPic.showDate}
+        handleDeleteImage={handleDeleteImage}
+        isDeletable={user.performerId === performer.id}
+      />
     </>
   );
 }

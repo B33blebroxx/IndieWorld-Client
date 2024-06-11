@@ -13,12 +13,11 @@ export default function PromotionPics({ promotionPics, handleImageClick }) {
             fluid
             loading="lazy"
             style={{ cursor: 'pointer', width: '100%', height: 'auto' }}
-            onClick={() => handleImageClick(pic.image, pic.showName, pic.showDate)}
+            onClick={() => handleImageClick(pic)}
           />
         </div>
       ))}
     </Masonry>
-
   );
 }
 
@@ -26,7 +25,9 @@ PromotionPics.propTypes = {
   promotionPics: PropTypes.arrayOf(
     PropTypes.shape({
       id: PropTypes.number.isRequired,
-      promotionImage: PropTypes.string,
+      image: PropTypes.string.isRequired,
+      showName: PropTypes.string.isRequired,
+      showDate: PropTypes.string.isRequired,
     }),
   ).isRequired,
   handleImageClick: PropTypes.func.isRequired,
