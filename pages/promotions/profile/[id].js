@@ -2,8 +2,8 @@ import { useContext, useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
 import { Typography } from '@mui/material';
 import { UserContext } from '../../../utils/context/authContext';
+import { getAPromotionAndItsPics, deletePromotionPic } from '../../../api/promotionPicApi';
 import { getAPromotionAndItsShows } from '../../../api/promotionApi';
-import { getAPromotionAndItsPics } from '../../../api/promotionPicApi';
 import Loading from '../../../components/Loading';
 import PromotionInfoCard from '../../../components/Cards/PromotionInfoCard';
 import ViewModeToggle from '../../../components/Buttons/ViewModeToggle';
@@ -11,7 +11,7 @@ import ViewShows from '../../../components/Views/ViewShows';
 import PromotionPics from '../../../components/Views/PastShowPics';
 import ImageModal from '../../../components/Modals/ImageModal';
 import ShowForm from '../../../components/Forms/ShowForm';
-import PromotionPicForm from '../../../components/Forms/PromotionPicForm'; // Import the form
+import PromotionPicForm from '../../../components/Forms/PromotionPicForm';
 
 export default function PromotionPage() {
   const [promotion, setPromotion] = useState(null);
@@ -22,6 +22,7 @@ export default function PromotionPage() {
   const [promotionPics, setPromotionPics] = useState([]);
   const [selectedImage, setSelectedImage] = useState(null);
   const [openModal, setOpenModal] = useState(false);
+  const [selectedPic, setSelectedPic] = useState({});
   const router = useRouter();
   const { id } = router.query;
 
@@ -53,14 +54,22 @@ export default function PromotionPage() {
     }
   };
 
-  const handleImageClick = (image) => {
-    setSelectedImage(image);
+  const handleImageClick = (pic) => {
+    setSelectedImage(pic.image);
+    setSelectedPic(pic);
     setOpenModal(true);
   };
 
   const handleCloseModal = () => {
     setOpenModal(false);
     setSelectedImage(null);
+    setSelectedPic({});
+  };
+
+  const handleDeleteImage = async () => {
+    await deletePromotionPic(selectedPic.id);
+    setPromotionPics((prevPics) => prevPics.filter((pic) => pic.id !== selectedPic.id));
+    handleCloseModal();
   };
 
   if (loading) {
@@ -99,7 +108,15 @@ export default function PromotionPage() {
           </Typography>
         </div>
       )}
-      <ImageModal openModal={openModal} handleCloseModal={handleCloseModal} selectedImage={selectedImage} />
+      <ImageModal
+        openModal={openModal}
+        handleCloseModal={handleCloseModal}
+        selectedImage={selectedImage}
+        showName={selectedPic.showName}
+        showDate={selectedPic.showDate}
+        handleDeleteImage={handleDeleteImage}
+        isDeletable={user.promotionId === promotion.id}
+      />
     </>
   );
 }

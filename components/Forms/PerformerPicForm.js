@@ -12,7 +12,7 @@ import {
 } from '@mui/material';
 import { DatePicker, LocalizationProvider } from '@mui/x-date-pickers';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
-import Image from 'next/image';
+import { Image } from 'react-bootstrap';
 import { UserContext } from '../../utils/context/authContext';
 import { createPerformerPic } from '../../api/performerPicApi';
 
