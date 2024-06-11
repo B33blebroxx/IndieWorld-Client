@@ -1,16 +1,17 @@
 import { useContext, useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
 import { Typography } from '@mui/material';
-import { getAPromotionAndItsShows } from '../../../api/promotionApi';
 import { UserContext } from '../../../utils/context/authContext';
-import Loading from '../../../components/Loading';
+import { getAPromotionAndItsShows } from '../../../api/promotionApi';
 import { getAPromotionAndItsPics } from '../../../api/promotionPicApi';
+import Loading from '../../../components/Loading';
 import PromotionInfoCard from '../../../components/Cards/PromotionInfoCard';
 import ViewModeToggle from '../../../components/Buttons/ViewModeToggle';
 import ViewShows from '../../../components/Views/ViewShows';
 import PromotionPics from '../../../components/Views/PastShowPics';
 import ImageModal from '../../../components/Modals/ImageModal';
 import ShowForm from '../../../components/Forms/ShowForm';
+import PromotionPicForm from '../../../components/Forms/PromotionPicForm'; // Import the form
 
 export default function PromotionPage() {
   const [promotion, setPromotion] = useState(null);
@@ -81,12 +82,22 @@ export default function PromotionPage() {
         </div>
       )}
       {viewMode === 'pastShowImages' && promotionPics?.length > 0 && (
-        <PromotionPics promotionPics={promotionPics} handleImageClick={handleImageClick} />
+        <div style={{ textAlign: 'left' }}>
+          {user.promotionId === promotion.id && (
+            <PromotionPicForm setPromotionPics={setPromotionPics} />
+          )}
+          <PromotionPics promotionPics={promotionPics} handleImageClick={handleImageClick} />
+        </div>
       )}
       {viewMode === 'pastShowImages' && promotionPics?.length === 0 && (
-        <Typography variant="body1" component="div" style={{ textAlign: 'center', marginTop: '2rem' }}>
-          No past show images available.
-        </Typography>
+        <div style={{ textAlign: 'left' }}>
+          {user.promotionId === promotion.id && (
+          <PromotionPicForm setPromotionPics={setPromotionPics} />
+          )}
+          <Typography variant="body1" component="div" style={{ textAlign: 'center', marginTop: '2rem' }}>
+            No past show images available.
+          </Typography>
+        </div>
       )}
       <ImageModal openModal={openModal} handleCloseModal={handleCloseModal} selectedImage={selectedImage} />
     </>

@@ -1,93 +1,101 @@
 import { useContext, useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
-import {
-  Card, CardContent, CardMedia, Divider, Typography,
-} from '@mui/material';
-import { Stack } from 'react-bootstrap';
+import { Typography } from '@mui/material';
 import { UserContext } from '../../../utils/context/authContext';
 import { getAPerformerAndTheirShows } from '../../../api/performerApi';
-import ShowCard from '../../../components/Cards/ShowCard';
+import { getAPerformerAndTheirPics } from '../../../api/performerPicApi';
+import Loading from '../../../components/Loading';
+import PerformerInfoCard from '../../../components/Cards/PerformerInfoCard';
+import ViewModeToggle from '../../../components/Buttons/ViewModeToggle';
+import ViewShows from '../../../components/Views/ViewShows';
+import PromotionPics from '../../../components/Views/PastShowPics';
+import ImageModal from '../../../components/Modals/ImageModal';
+import PerformerPicForm from '../../../components/Forms/PerformerPicForm'; // Import the form
 
 export default function PerformerProfile() {
-  const [performer, setPerformer] = useState({});
-  const [shows, setShows] = useState([]);
+  const [performer, setPerformer] = useState(null);
   const [loading, setLoading] = useState(true);
+  const { user } = useContext(UserContext);
+  const [shows, setShows] = useState([]);
+  const [viewMode, setViewMode] = useState('upcomingShows');
+  const [performerPics, setPerformerPics] = useState([]);
+  const [selectedImage, setSelectedImage] = useState(null);
+  const [openModal, setOpenModal] = useState(false);
   const router = useRouter();
   const { id } = router.query;
-  const { user } = useContext(UserContext);
 
   useEffect(() => {
     const fetchData = async () => {
-      const result = await getAPerformerAndTheirShows(id);
+      setLoading(true);
+
+      let result;
+      if (viewMode === 'upcomingShows') {
+        result = await getAPerformerAndTheirShows(id);
+        setShows(result.shows);
+      } else if (viewMode === 'pastShowImages') {
+        result = await getAPerformerAndTheirPics(id);
+        setPerformerPics(result.performerPics);
+      }
+
       setPerformer(result);
-      setShows(result?.shows);
       setLoading(false);
     };
-    fetchData();
-  }, [user, id]);
+
+    if (id) {
+      fetchData();
+    }
+  }, [id, viewMode]);
+
+  const handleViewModeChange = (e, newViewMode) => {
+    if (newViewMode !== null) {
+      setViewMode(newViewMode);
+    }
+  };
+
+  const handleImageClick = (image) => {
+    setSelectedImage(image);
+    setOpenModal(true);
+  };
+
+  const handleCloseModal = () => {
+    setOpenModal(false);
+    setSelectedImage(null);
+  };
 
   if (loading) {
-    return <div>Loading...</div>;
+    return <div><Loading /></div>;
   }
+
   return (
     <>
-      <Card style={{ maxWidth: '80rem', height: '25rem' }} className="performerInfo">
-        <div style={{ display: 'flex' }}>
-          <CardMedia
-            style={{
-              maxWidth: '25%',
-              height: '25rem', // fixed height
-              objectFit: 'fill',
-            }}
-            component="img"
-            image={performer?.image}
-            alt="Performer Image"
-            className="CardMedia"
-          />
-          <CardContent style={{
-            flex: '1 0 50%', overflowY: 'auto', maxHeight: '25rem', margin: 0, padding: 0,
-          }}
-          >
-            <Stack spacing={2}>
-              <Typography className="font" variant="h4" component="div" align="center" style={{ color: 'white' }}>
-                {performer?.ringName}
-              </Typography>
-              <Divider orientation="horizontal" variant="middle" style={{ backgroundColor: 'lightgrey' }} flexItem />
-              <Typography className="font" variant="h5" component="div" align="center" style={{ color: 'white' }}>
-                Hometown: {performer?.hometown}
-              </Typography>
-              <Divider orientation="horizontal" variant="middle" style={{ backgroundColor: 'lightgrey' }} flexItem />
-              <Typography className="font" variant="h5" component="div" align="center" style={{ color: 'white' }}>
-                Role: {performer?.role}
-              </Typography>
-              <Divider orientation="horizontal" variant="middle" style={{ backgroundColor: 'lightgrey' }} flexItem />
-              <Typography className="font" variant="h5" component="div" align="center" style={{ color: 'white' }}>
-                Accolades: {performer?.accolades}
-              </Typography>
-              <Divider orientation="horizontal" variant="middle" style={{ backgroundColor: 'lightgrey' }} flexItem />
-              <Typography className="font" variant="h5" component="div" align="center" style={{ color: 'white' }}>
-                Status: {performer?.active ? 'Active' : 'Inactive'}
-              </Typography>
-              <Divider orientation="horizontal" variant="middle" style={{ backgroundColor: 'lightgrey' }} flexItem />
-              <Typography className="font" variant="h5" component="div" align="center" style={{ color: 'white' }}>
-                Bio: {performer?.bio}
-              </Typography>
-            </Stack>
-          </CardContent>
+      <PerformerInfoCard performer={performer} />
+      <br />
+      <br />
+      <ViewModeToggle viewMode={viewMode} handleViewModeChange={handleViewModeChange} />
+      {viewMode === 'upcomingShows' && (
+        <div style={{ textAlign: 'left' }}>
+          <ViewShows shows={shows} user={user} setShows={setShows} />
         </div>
-      </Card>
-      <br />
-      <br />
-      <div className="text-center">
-        <h4 style={{ color: 'grey' }}>Upcoming Shows:</h4>
-      </div>
-      <br />
-      <br />
-      <div className="card-container d-flex flex-wrap justify-content-center">
-        {shows.map((show) => (
-          <ShowCard key={show.id} show={show} setShows={setShows} />
-        ))}
-      </div>
+      )}
+      {viewMode === 'pastShowImages' && performerPics?.length > 0 && (
+        <div style={{ textAlign: 'left' }}>
+          {user.performerId === performer.id && (
+            <PerformerPicForm setPerformerPics={setPerformerPics} />
+          )}
+          <PromotionPics promotionPics={performerPics} handleImageClick={handleImageClick} />
+        </div>
+      )}
+      {viewMode === 'pastShowImages' && performerPics?.length === 0 && (
+        <div style={{ textAlign: 'left' }}>
+          {user.performerId === performer.id && (
+          <PerformerPicForm setPerformerPics={setPerformerPics} />
+          )}
+          <Typography variant="body1" component="div" style={{ textAlign: 'center', marginTop: '2rem' }}>
+            No past show images available.
+          </Typography>
+        </div>
+      )}
+      <ImageModal openModal={openModal} handleCloseModal={handleCloseModal} selectedImage={selectedImage} />
     </>
   );
 }

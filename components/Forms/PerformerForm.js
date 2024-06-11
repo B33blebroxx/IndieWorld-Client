@@ -122,7 +122,7 @@ const PerformerForm = ({ performerObj }) => {
             <FormLabel>
               <Typography component="div" variant="h7" color="textPrimary">Performer Image</Typography>
             </FormLabel>
-            <TextField type="file" accept="image/*" onChange={handleFileUpload} variant="outlined" margin="normal" />
+            <TextField type="file" accept="jpg, jpeg, png" onChange={handleFileUpload} variant="outlined" margin="normal" />
             {formData.image && (
             <div style={{
               marginTop: '1rem', marginLeft: '1rem', width: '400px', height: '400px', position: 'relative',
