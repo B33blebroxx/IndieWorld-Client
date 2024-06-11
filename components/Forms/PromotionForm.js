@@ -167,6 +167,7 @@ export default function PromotionForm({ promotionObj }) {
                     <TextField
                       name="image"
                       type="file"
+                      accept="jpg, jpeg, png"
                       onChange={handleFileUpload}
                       required
                       fullWidth

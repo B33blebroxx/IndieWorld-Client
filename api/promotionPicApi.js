@@ -40,4 +40,19 @@ const createPromotionPic = async (promotionPicData) => {
   return response.json();
 };
 
-export { getAPromotionAndItsPics, getAPromotionPic, createPromotionPic };
+const deletePromotionPic = async (promotionPicId) => {
+  const response = await fetch(`${endpoint}/promotion/pics/${promotionPicId}`, {
+    method: 'DELETE',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+  });
+
+  if (!response.ok) {
+    throw new Error('Failed to delete promotion pic');
+  }
+};
+
+export {
+  getAPromotionAndItsPics, getAPromotionPic, createPromotionPic, deletePromotionPic,
+};

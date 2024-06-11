@@ -10,7 +10,6 @@ import {
   FormGroup, FormLabel, TextField,
   Typography,
 } from '@mui/material';
-import { Form } from 'react-bootstrap';
 import Image from 'next/image';
 import { useRouter } from 'next/router';
 import { DatePicker, LocalizationProvider } from '@mui/x-date-pickers';
@@ -162,7 +161,7 @@ export default function ShowForm({ showObj, setShows }) {
                       <FormLabel>
                         <Typography component="div" variant="h7" color="textPrimary">Show Image</Typography>
                       </FormLabel>
-                      <Form.Control type="file" accept="image/*" onChange={handleFileUpload} />
+                      <TextField type="file" accept="jpg, jpeg, png" onChange={handleFileUpload} />
                       {formData.showImage && (
                       <div style={{
                         marginTop: '10px', marginLeft: '60px', width: '400px', height: '400px', position: 'relative',
