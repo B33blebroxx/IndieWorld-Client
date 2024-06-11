@@ -10,6 +10,7 @@ import ViewModeToggle from '../../../components/Buttons/ViewModeToggle';
 import ViewShows from '../../../components/Views/ViewShows';
 import PromotionPics from '../../../components/Views/PastShowPics';
 import ImageModal from '../../../components/Modals/ImageModal';
+import ShowForm from '../../../components/Forms/ShowForm';
 
 export default function PromotionPage() {
   const [promotion, setPromotion] = useState(null);
@@ -30,11 +31,9 @@ export default function PromotionPage() {
       let result;
       if (viewMode === 'upcomingShows') {
         result = await getAPromotionAndItsShows(id);
-        console.log('Fetched shows:', result.shows);
         setShows(result.shows);
       } else if (viewMode === 'pastShowImages') {
         result = await getAPromotionAndItsPics(id);
-        console.log('Fetched pics:', result.promotionPics);
         setPromotionPics(result.promotionPics);
       }
 
@@ -73,8 +72,13 @@ export default function PromotionPage() {
       <br />
       <br />
       <ViewModeToggle viewMode={viewMode} handleViewModeChange={handleViewModeChange} />
-      {viewMode === 'upcomingShows' && shows?.length > 0 && (
-        <ViewShows shows={shows} user={user} setShows={setShows} />
+      {viewMode === 'upcomingShows' && (
+        <div style={{ textAlign: 'left' }}>
+          {user.promotionId === promotion.id && (
+            <ShowForm setShows={setShows} />
+          )}
+          <ViewShows shows={shows} user={user} setShows={setShows} />
+        </div>
       )}
       {viewMode === 'pastShowImages' && promotionPics?.length > 0 && (
         <PromotionPics promotionPics={promotionPics} handleImageClick={handleImageClick} />
@@ -84,7 +88,7 @@ export default function PromotionPage() {
           No past show images available.
         </Typography>
       )}
-      <ImageModal open={openModal} handleClose={handleCloseModal} selectedImage={selectedImage} />
+      <ImageModal openModal={openModal} handleCloseModal={handleCloseModal} selectedImage={selectedImage} />
     </>
   );
 }

@@ -47,11 +47,12 @@ export default function PromotionInfoCard({ promotion }) {
 
 PromotionInfoCard.propTypes = {
   promotion: PropTypes.shape({
+    id: PropTypes.number.isRequired,
     logo: PropTypes.string.isRequired,
     promotionName: PropTypes.string.isRequired,
     acronym: PropTypes.string.isRequired,
     hq: PropTypes.string.isRequired,
-    established: PropTypes.string.isRequired,
+    established: PropTypes.number.isRequired,
     owner: PropTypes.string.isRequired,
     showFrequency: PropTypes.string.isRequired,
     description: PropTypes.string.isRequired,

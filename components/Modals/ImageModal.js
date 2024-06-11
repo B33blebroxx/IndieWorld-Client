@@ -24,7 +24,12 @@ export default function ImageModal({ openModal, handleCloseModal, selectedImage 
 }
 
 ImageModal.propTypes = {
-  openModal: PropTypes.bool.isRequired,
-  handleCloseModal: PropTypes.func.isRequired,
-  selectedImage: PropTypes.string.isRequired,
+  openModal: PropTypes.bool,
+  handleCloseModal: PropTypes.func,
+  selectedImage: PropTypes.string,
+};
+ImageModal.defaultProps = {
+  openModal: false,
+  handleCloseModal: () => {},
+  selectedImage: '',
 };

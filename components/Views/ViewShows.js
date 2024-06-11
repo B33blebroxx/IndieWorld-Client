@@ -1,19 +1,13 @@
 import PropTypes from 'prop-types';
 import ShowCard from '../Cards/ShowCard';
-import ShowForm from '../Forms/ShowForm';
 
 export default function ViewShows({ shows, user, setShows }) {
   return (
-    <>
-      <div style={{ textAlign: 'left' }}>
-        <ShowForm setShows={setShows} />
-      </div>
-      <div className="show-cards-container">
-        {shows.map((show) => (
-          <ShowCard key={show.id} show={show} userObj={user} setShows={setShows} />
-        ))}
-      </div>
-    </>
+    <div className="show-cards-container">
+      {shows.map((show) => (
+        <ShowCard key={show.id} show={show} userObj={user} setShows={setShows} />
+      ))}
+    </div>
   );
 }
 
