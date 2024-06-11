@@ -25,7 +25,7 @@ PromotionPics.propTypes = {
   promotionPics: PropTypes.arrayOf(
     PropTypes.shape({
       id: PropTypes.number.isRequired,
-      promotionImage: PropTypes.string.isRequired,
+      promotionImage: PropTypes.string,
     }),
   ).isRequired,
   handleImageClick: PropTypes.func.isRequired,
