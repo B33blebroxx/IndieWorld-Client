@@ -1,7 +1,7 @@
 const endpoint = 'https://localhost:7114';
 
 const getAPromotionAndItsPics = (id) => new Promise((resolve, reject) => {
-  fetch(`${endpoint}/promotions/${id}/promotionpics`, {
+  fetch(`${endpoint}/promotions/${id}/pics`, {
     method: 'GET',
     headers: {
       'Content-Type': 'application/json',
@@ -13,7 +13,7 @@ const getAPromotionAndItsPics = (id) => new Promise((resolve, reject) => {
 });
 
 const getAPromotionPic = (id) => new Promise((resolve, reject) => {
-  fetch(`${endpoint}/promotionpics/${id}`, {
+  fetch(`${endpoint}/promotion/pics/${id}`, {
     method: 'GET',
     headers: {
       'Content-Type': 'application/json',
@@ -25,7 +25,7 @@ const getAPromotionPic = (id) => new Promise((resolve, reject) => {
 });
 
 const createPromotionPic = async (promotionPicData) => {
-  const response = await fetch(`${endpoint}/promotionpics`, {
+  const response = await fetch(`${endpoint}/promotion/pics`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',

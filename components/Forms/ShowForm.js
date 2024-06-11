@@ -1,4 +1,3 @@
-import { useRouter } from 'next/router';
 import React, { useContext, useState } from 'react';
 import PropTypes from 'prop-types';
 import {
@@ -11,11 +10,11 @@ import {
   FormGroup, FormLabel, TextField,
   Typography,
 } from '@mui/material';
-import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
-import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
 import { Form } from 'react-bootstrap';
 import Image from 'next/image';
-import { DatePicker } from '@mui/x-date-pickers';
+import { useRouter } from 'next/router';
+import { DatePicker, LocalizationProvider } from '@mui/x-date-pickers';
+import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { UserContext } from '../../utils/context/authContext';
 import { updateShow, createShow } from '../../api/showApi';
 
@@ -97,35 +96,35 @@ export default function ShowForm({ showObj, setShows }) {
 
   return (
     <div>
-      <Button className="font" variant="contained" type="button" color="primary" onClick={handleClickOpen}>
-        {showObj?.id ? 'Edit Show' : 'Add Show'}
-      </Button>
-      <Dialog
-        open={open}
-        onClose={handleClose}
-        aria-labelledby="form-dialog-title"
-      >
-        <DialogTitle id="form-dialog-title"><Typography component="div" variant="h6" align="center">Show Form</Typography></DialogTitle>
-        <DialogContent style={{ width: '600px' }}>
-          <Typography component="div" align="center">
-            <Box display="flex" flexDirection="column" alignItems="center">
-              <div className="form-wrapper">
-                <form onSubmit={handleSubmit}>
-                  <FormGroup>
-                    <FormLabel>
-                      <Typography component="div" variant="h7" color="textPrimary">Show Name</Typography>
-                    </FormLabel>
-                    <TextField id="filled-basic" label="Show Name" variant="filled" name="showName" value={formData.showName} onChange={handleChange} required />
-                  </FormGroup>
-                  <br />
-                  <FormGroup>
-                    <FormLabel>
-                      <Typography component="div" variant="h7" color="textPrimary">Location</Typography>
-                    </FormLabel>
-                    <TextField id="filled-basic" label="Location" variant="filled" name="location" value={formData.location} onChange={handleChange} required />
-                  </FormGroup>
-                  <br />
-                  <LocalizationProvider dateAdapter={AdapterDateFns}>
+      <LocalizationProvider dateAdapter={AdapterDayjs}>
+        <Button className="font" variant="contained" type="button" color="primary" onClick={handleClickOpen}>
+          {showObj?.id ? 'Edit Show' : 'Add Show'}
+        </Button>
+        <Dialog
+          open={open}
+          onClose={handleClose}
+          aria-labelledby="form-dialog-title"
+        >
+          <DialogTitle id="form-dialog-title"><Typography component="div" variant="h6" align="center">Show Form</Typography></DialogTitle>
+          <DialogContent style={{ width: '600px' }}>
+            <Typography component="div" align="center">
+              <Box display="flex" flexDirection="column" alignItems="center">
+                <div className="form-wrapper">
+                  <form onSubmit={handleSubmit}>
+                    <FormGroup>
+                      <FormLabel>
+                        <Typography component="div" variant="h7" color="textPrimary">Show Name</Typography>
+                      </FormLabel>
+                      <TextField id="filled-basic" label="Show Name" variant="filled" name="showName" value={formData.showName} onChange={handleChange} required />
+                    </FormGroup>
+                    <br />
+                    <FormGroup>
+                      <FormLabel>
+                        <Typography component="div" variant="h7" color="textPrimary">Location</Typography>
+                      </FormLabel>
+                      <TextField id="filled-basic" label="Location" variant="filled" name="location" value={formData.location} onChange={handleChange} required />
+                    </FormGroup>
+                    <br />
                     <FormGroup>
                       <FormLabel>
                         <Typography component="div" variant="h7" color="textPrimary">
@@ -144,53 +143,53 @@ export default function ShowForm({ showObj, setShows }) {
                         }}
                       />
                     </FormGroup>
-                  </LocalizationProvider>
-                  <br />
-                  <FormGroup>
-                    <FormLabel>
-                      <Typography component="div" variant="h7" color="textPrimary">Show Time</Typography>
-                    </FormLabel>
-                    <TextField id="filled-basic" label="(ex: Doors @ 5pm Bell @ 6pm)" type="text" variant="filled" name="showTime" value={formData.showTime} onChange={handleChange} required />
-                  </FormGroup>
-                  <br />
-                  <FormGroup>
-                    <FormLabel>
-                      <Typography component="div" variant="h7" color="textPrimary">Price</Typography>
-                    </FormLabel>
-                    <TextField id="filled-basic" label="Price" type="number" variant="filled" name="price" value={formData.price} onChange={handleChange} required />
-                  </FormGroup>
-                  <br />
-                  <FormGroup>
-                    <FormLabel>
-                      <Typography component="div" variant="h7" color="textPrimary">Show Image</Typography>
-                    </FormLabel>
-                    <Form.Control type="file" accept="image/*" onChange={handleFileUpload} />
-                    {formData.showImage && (
-                    <div style={{
-                      marginTop: '10px', marginLeft: '60px', width: '400px', height: '400px', position: 'relative',
-                    }}
-                    >
-                      <Image key={formData.showImage} src={formData.showImage} alt="Show Image" layout="fill" objectFit="cover" />
+                    <br />
+                    <FormGroup>
+                      <FormLabel>
+                        <Typography component="div" variant="h7" color="textPrimary">Show Time</Typography>
+                      </FormLabel>
+                      <TextField id="filled-basic" label="(ex: Doors @ 5pm Bell @ 6pm)" type="text" variant="filled" name="showTime" value={formData.showTime} onChange={handleChange} required />
+                    </FormGroup>
+                    <br />
+                    <FormGroup>
+                      <FormLabel>
+                        <Typography component="div" variant="h7" color="textPrimary">Price</Typography>
+                      </FormLabel>
+                      <TextField id="filled-basic" label="Price" type="number" variant="filled" name="price" value={formData.price} onChange={handleChange} required />
+                    </FormGroup>
+                    <br />
+                    <FormGroup>
+                      <FormLabel>
+                        <Typography component="div" variant="h7" color="textPrimary">Show Image</Typography>
+                      </FormLabel>
+                      <Form.Control type="file" accept="image/*" onChange={handleFileUpload} />
+                      {formData.showImage && (
+                      <div style={{
+                        marginTop: '10px', marginLeft: '60px', width: '400px', height: '400px', position: 'relative',
+                      }}
+                      >
+                        <Image key={formData.showImage} src={formData.showImage} alt="Show Image" layout="fill" objectFit="cover" />
+                      </div>
+                      )}
+                    </FormGroup>
+                    <br />
+                    <div className="button-container">
+                      <Button type="submit" variant="contained" color="primary">
+                        Submit
+                      </Button>
                     </div>
-                    )}
-                  </FormGroup>
-                  <br />
-                  <div className="button-container">
-                    <Button type="submit" variant="contained" color="primary">
-                      Submit
-                    </Button>
-                  </div>
-                </form>
-              </div>
-            </Box>
-          </Typography>
-        </DialogContent>
-        <DialogActions>
-          <Button onClick={handleClose} type="button" color="primary">
-            Cancel
-          </Button>
-        </DialogActions>
-      </Dialog>
+                  </form>
+                </div>
+              </Box>
+            </Typography>
+          </DialogContent>
+          <DialogActions>
+            <Button onClick={handleClose} type="button" color="primary">
+              Cancel
+            </Button>
+          </DialogActions>
+        </Dialog>
+      </LocalizationProvider>
     </div>
   );
 }
