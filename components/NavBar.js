@@ -58,7 +58,9 @@ export default function NavBar() {
           paper: classes.drawerPaper,
         }}
       >
-        <Image id="small-logo" quality={100} src={smallLogo} objectFit="contain" alt="Indie World Logo" />
+        <br />
+        <br />
+        <Image id="small-logo" height={175} width={175} quality={100} src={smallLogo} objectFit="contain" alt="Indie World Logo" />
         <Stack spacing={3} direction="column" style={{ padding: '1rem' }}>
           <Link href="/" passHref>
             <Button className={`${classes.button} navLink`}>

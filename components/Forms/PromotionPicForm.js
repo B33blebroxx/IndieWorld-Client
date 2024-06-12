@@ -84,7 +84,6 @@ export default function PromotionPicForm({ setPromotionPics }) {
           border: '1px solid rgba(255, 255, 255, 0.129)',
           boxShadow: '0 8px 32px 0 rgba(30, 30, 30, 0.603)',
           backdropFilter: 'blur( 7px )',
-          color: 'black',
         }}
         onClick={handleClickOpen}
       >
@@ -95,7 +94,7 @@ export default function PromotionPicForm({ setPromotionPics }) {
         <DialogContent>
           <FormGroup>
             <FormLabel>Show Name</FormLabel>
-            <TextField name="showName" value={formData.showName} onChange={handleChange} fullWidth variant="outlined" margin="normal" />
+            <TextField name="showName" value={formData.showName} onChange={handleChange} fullWidth variant="standard" margin="normal" />
           </FormGroup>
           <FormGroup>
             <FormLabel>Show Date</FormLabel>
@@ -106,13 +105,13 @@ export default function PromotionPicForm({ setPromotionPics }) {
                 onChange={(newValue) => {
                   setFormData((prevData) => ({ ...prevData, showDate: newValue }));
                 }}
-                renderInput={(params) => <TextField {...params} fullWidth variant="outlined" margin="normal" />}
+                renderInput={(params) => <TextField {...params} fullWidth variant="standard" margin="normal" />}
               />
             </LocalizationProvider>
           </FormGroup>
           <FormGroup>
             <FormLabel>Image</FormLabel>
-            <TextField type="file" accept="image/jpg, image/jpeg, image/png" onChange={handleFileUpload} variant="outlined" margin="normal" fullWidth />
+            <TextField type="file" accept="image/jpg, image/jpeg, image/png" onChange={handleFileUpload} variant="standard" margin="normal" fullWidth />
             {formData.image && (
               <div style={{
                 marginTop: '1rem', display: 'flex', justifyContent: 'center',

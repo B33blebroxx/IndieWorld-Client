@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import {
   Box,
@@ -14,6 +14,8 @@ import Image from 'next/image';
 import { useRouter } from 'next/router';
 import { DatePicker, LocalizationProvider } from '@mui/x-date-pickers';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
+import dayjs from 'dayjs';
+import { AddBoxOutlined, DesignServices } from '@mui/icons-material';
 import { UserContext } from '../../utils/context/authContext';
 import { updateShow, createShow } from '../../api/showApi';
 
@@ -32,16 +34,20 @@ export default function ShowForm({ showObj, setShows }) {
   const { user } = useContext(UserContext);
   const [open, setOpen] = useState(false);
 
-  const handleClickOpen = (e) => {
-    e.preventDefault();
-    if (showObj) {
+  useEffect(() => {
+    console.log('showObj:', showObj); // Log showObj for debugging
+    if (showObj && showObj.id) {
       setFormData({
         ...showObj,
-        showDate: showObj.showDate ? new Date(showObj.showDate) : null,
+        showDate: showObj.showDate ? dayjs(showObj.showDate) : null, // Convert to dayjs object
       });
     } else {
       setFormData({ ...initialState });
     }
+  }, [showObj]);
+
+  const handleClickOpen = (e) => {
+    e.preventDefault();
     setOpen(true);
   };
 
@@ -65,17 +71,21 @@ export default function ShowForm({ showObj, setShows }) {
       promotionId: user.promotionId,
     };
     if (showObj?.id) {
-      await updateShow(data).then(() => {
-        setShows((prevShows) => prevShows.map((show) => (show.id === data.id ? data : show)));
-        handleClose();
-        router.push(`/promotions/profile/${user?.promotionId}`);
-      });
+      await updateShow(data)
+        .then(() => {
+          setShows((prevShows) => prevShows.map((show) => (show.id === data.id ? data : show)));
+          handleClose();
+          router.push(`/promotions/profile/${user?.promotionId}`);
+        })
+        .catch((error) => console.error('Error updating show:', error));
     } else {
-      await createShow(data).then((newShow) => {
-        setShows((prevShows) => [...prevShows, newShow]);
-        handleClose();
-        router.push(`/promotions/profile/${user?.promotionId}`);
-      });
+      await createShow(data)
+        .then((newShow) => {
+          setShows((prevShows) => [...prevShows, newShow]);
+          handleClose();
+          router.push(`/promotions/profile/${user?.promotionId}`);
+        })
+        .catch((error) => console.error('Error creating show:', error));
     }
   };
 
@@ -96,8 +106,22 @@ export default function ShowForm({ showObj, setShows }) {
   return (
     <div>
       <LocalizationProvider dateAdapter={AdapterDayjs}>
-        <Button className="font" variant="contained" type="button" color="primary" onClick={handleClickOpen}>
-          {showObj?.id ? 'Edit Show' : 'Add Show'}
+        <Button
+          className="font"
+          variant="contained"
+          style={{
+            marginBottom: '1rem',
+            backgroundColor: 'rgba(104, 101, 101, 0.4)',
+            border: '1.5px solid rgba(255, 255, 255, 0.129)',
+            boxShadow: '0 8px 32px 0 rgba(30, 30, 30, 0.603)',
+            backdropFilter: 'blur( 7px )',
+            color: 'white',
+          }}
+          type="button"
+          size="small"
+          onClick={handleClickOpen}
+        >
+          {showObj?.id ? <DesignServices size="small" /> : <AddBoxOutlined size="small" />}
         </Button>
         <Dialog
           open={open}
@@ -133,13 +157,11 @@ export default function ShowForm({ showObj, setShows }) {
                       <DatePicker
                         label="Show Date"
                         value={formData.showDate}
-                        inputFormat="MM/dd/yyyy"
+                        inputFormat="MM/DD/YYYY"
                         onChange={(newValue) => {
                           setFormData({ ...formData, showDate: newValue });
                         }}
-                        components={{
-                          textField: TextField,
-                        }}
+                        renderInput={(params) => <TextField {...params} />}
                       />
                     </FormGroup>
                     <br />
@@ -161,7 +183,7 @@ export default function ShowForm({ showObj, setShows }) {
                       <FormLabel>
                         <Typography component="div" variant="h7" color="textPrimary">Show Image</Typography>
                       </FormLabel>
-                      <TextField type="file" accept="jpg, jpeg, png" onChange={handleFileUpload} />
+                      <TextField type="file" accept="image/*" onChange={handleFileUpload} />
                       {formData.showImage && (
                       <div style={{
                         marginTop: '10px', marginLeft: '60px', width: '400px', height: '400px', position: 'relative',
@@ -199,7 +221,7 @@ ShowForm.propTypes = {
     showName: PropTypes.string,
     showImage: PropTypes.string,
     location: PropTypes.string,
-    showDate: PropTypes.instanceOf(Date),
+    showDate: PropTypes.instanceOf(dayjs), // Use dayjs instance
     showTime: PropTypes.string,
     price: PropTypes.number,
     promotionId: PropTypes.number,

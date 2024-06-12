@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import {
-  Button, Card, Stack,
+  Button, Card, CardMedia, Divider, Stack,
   Typography,
 } from '@mui/material';
 import Link from 'next/link';
@@ -37,18 +37,29 @@ function Home() {
 
   return (
     <Card
+      style={{
+        display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center',
+      }}
       id="home-card"
-      className="font text-center d-flex flex-column justify-content-center align-content-center"
+      className="text-center"
     >
-      <Image id="logo" src={logo} objectFit="contain" height={300} width={300} alt="Indie World Logo" />
+      <CardMedia objectFit="contain">
+        <Image id="logo" height={200} width={200} quality={100} src={logo} objectFit="contain" alt="Indie World Logo" />
+      </CardMedia>
       <Typography className="font" variant="h4" color="white">{user.fbUser.displayName}<br /> Welcome To Indie World </Typography>
       <br />
       <Stack spacing={2}>
-        {/* ButtonGroup for actions */}
         <Link href="/shows/all" passHref><Button className="font" style={{ color: 'white' }}>Shows</Button></Link>
+        <Divider orientation="horizontal" variant="middle" style={{ backgroundColor: 'lightgrey' }} />
+        <Link href="/performers/all" passHref><Button className="font" style={{ color: 'white' }}>Performers</Button></Link>
+        <Divider orientation="horizontal" variant="middle" style={{ backgroundColor: 'lightgrey' }} />
+        <Link href="/promotions/all" passHref><Button className="font" style={{ color: 'white' }}>Promotions</Button></Link>
+        <Divider orientation="horizontal" variant="middle" style={{ backgroundColor: 'lightgrey' }} />
         <PromotionForm open={openPromotionForm} onClose={() => setOpenPromotionForm(false)} promotionObj={promotion} />
+        <Divider orientation="horizontal" variant="middle" style={{ backgroundColor: 'lightgrey' }} />
         <PerformerForm open={openPerformerForm} onClose={() => setOpenPerformerForm(false)} performerObj={performer} />
       </Stack>
+      <br />
     </Card>
   );
 }

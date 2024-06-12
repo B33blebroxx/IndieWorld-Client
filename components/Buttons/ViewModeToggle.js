@@ -9,20 +9,20 @@ export default function ViewModeToggle({ viewMode, handleViewModeChange }) {
         exclusive
         onChange={handleViewModeChange}
         aria-label="view mode"
-        size="large"
+        size="medium"
         style={{
           marginBottom: '1rem',
           backgroundColor: 'rgba(33, 33, 33, 0.65)',
           opacity: '.9',
           border: '1px solid rgba(255, 255, 255, 0.129)',
           boxShadow: '0 8px 32px 0 rgba(30, 30, 30, 0.603)',
-          backdropFilter: 'blur( 7px )',
         }}
       >
         <ToggleButton
           style={{
             color: viewMode === 'upcomingShows' ? 'white' : 'black',
             backgroundColor: viewMode === 'upcomingShows' ? 'black' : 'grey',
+            backdropFilter: 'blur( 7px )',
           }}
           value="upcomingShows"
           aria-label="upcoming shows"

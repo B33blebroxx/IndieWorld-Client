@@ -13,6 +13,7 @@ import {
 import { DatePicker, LocalizationProvider } from '@mui/x-date-pickers';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { Image } from 'react-bootstrap';
+import { AddBoxOutlined } from '@mui/icons-material';
 import { UserContext } from '../../utils/context/authContext';
 import { createPerformerPic } from '../../api/performerPicApi';
 
@@ -74,8 +75,19 @@ export default function PerformerPicForm({ setPerformerPics }) {
 
   return (
     <div>
-      <Button variant="contained" color="primary" onClick={handleClickOpen}>
-        Add Performer Image
+      <Button
+        variant="contained"
+        size="small"
+        style={{
+          marginBottom: '1rem',
+          backgroundColor: 'rgba(104, 101, 101, 0.4)',
+          border: '1.5px solid rgba(255, 255, 255, 0.129)',
+          boxShadow: '0 8px 32px 0 rgba(30, 30, 30, 0.603)',
+          backdropFilter: 'blur( 7px )',
+        }}
+        onClick={handleClickOpen}
+      >
+        <AddBoxOutlined size="small" style={{ color: 'white' }} />
       </Button>
       <Dialog open={open} onClose={handleClose}>
         <DialogTitle>Add Performer Image</DialogTitle>

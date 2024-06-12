@@ -1,15 +1,15 @@
 import { useContext, useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
-import {
-  Button,
-  Card, CardContent, CardMedia, Divider, Stack, Typography,
-} from '@mui/material';
+import { Button } from '@mui/material';
+import { AddBoxOutlined } from '@mui/icons-material';
 import Loading from '../../../components/Loading';
 import { getAShowAndItsPerformers } from '../../../api/showApi';
 import { UserContext } from '../../../utils/context/authContext';
-import PerformerCard from '../../../components/Cards/PerformerCard';
+
 import { addPerformerToShow, removePerformerFromShow } from '../../../api/performerApi';
 import PerformerSelectionModal from '../../../components/Modals/PerformerSelectionModal';
+import ShowInfoCard from '../../../components/Cards/ShowInfoCard';
+import PerformerList from '../../../components/Views/PerformerListView';
 
 export default function ShowDetails() {
   const [showDetails, setShowDetails] = useState({});
@@ -46,38 +46,7 @@ export default function ShowDetails() {
   }
   return (
     <>
-      <Card className="showInfo">
-        <CardMedia
-          style={{ width: '50%', height: '25rem', objectFit: 'fill' }}
-          component="img"
-          image={showDetails?.showImage}
-          alt="Show Logo"
-          className="CardMedia"
-        />
-        <CardContent style={{ flex: '1 0 50%', overflowY: 'auto', maxHeight: '25rem' }}>
-          <Stack spacing={2}>
-            <Typography className="font" variant="h5" component="div">
-              {showDetails?.showName}
-            </Typography>
-            <Divider orientation="horizontal" variant="middle" style={{ backgroundColor: 'lightgrey' }} flexItem />
-            <Typography className="font" variant="body1" component="div">
-              Date: {showDetails?.showDate}
-            </Typography>
-            <Divider orientation="horizontal" variant="middle" style={{ backgroundColor: 'lightgrey' }} flexItem />
-            <Typography className="font" variant="body1" component="div">
-              Time: {showDetails?.showTime}
-            </Typography>
-            <Divider orientation="horizontal" variant="middle" style={{ backgroundColor: 'lightgrey' }} flexItem />
-            <Typography className="font" variant="body1" component="div">
-              Location: {showDetails?.location}
-            </Typography>
-            <Divider orientation="horizontal" variant="middle" style={{ backgroundColor: 'lightgrey' }} flexItem />
-            <Typography className="font" variant="body1" component="div">
-              Door Price: ${showDetails?.price}
-            </Typography>
-          </Stack>
-        </CardContent>
-      </Card>
+      <ShowInfoCard showDetails={showDetails} />
       <br />
       <br />
       <div className="text-center">
@@ -86,8 +55,21 @@ export default function ShowDetails() {
       <br />
       <br />
       {user.promotionId === showDetails.promotionId && (
-        <Button className="font" type="button" variant="outlined" size="small" onClick={() => setShowModal(true)}>
-          Add Performers
+        <Button
+          className="font"
+          type="button"
+          variant="outlined"
+          style={{
+            marginBottom: '1rem',
+            backgroundColor: 'rgba(104, 101, 101, 0.4)',
+            border: '1.5px solid rgba(255, 255, 255, 0.129)',
+            boxShadow: '0 8px 32px 0 rgba(30, 30, 30, 0.603)',
+            backdropFilter: 'blur( 7px )',
+          }}
+          size="small"
+          onClick={() => setShowModal(true)}
+        >
+          <AddBoxOutlined size="small" style={{ color: 'white' }} />
         </Button>
       )}
       <PerformerSelectionModal
@@ -99,11 +81,7 @@ export default function ShowDetails() {
       />
       <br />
       <br />
-      <div className="performer-card-container">
-        {performers.map((performer) => (
-          <PerformerCard key={performer.id} performer={performer} onRemove={handleRemove} showPromotionId={showDetails.promotionId} userPromotionId={user.promotionId} />
-        ))}
-      </div>
+      <PerformerList performers={performers} handleRemove={handleRemove} showPromotionId={showDetails.promotionId} userPromotionId={user.promotionId} />
     </>
   );
 }
