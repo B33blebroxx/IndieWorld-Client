@@ -3,6 +3,7 @@ import Link from 'next/link';
 import PropTypes from 'prop-types';
 import { useContext } from 'react';
 import { CardFooter, Image } from 'react-bootstrap';
+import { DeleteOutline } from '@mui/icons-material';
 import { UserContext } from '../../utils/context/authContext';
 
 export default function PerformerCard({ performer, onRemove, showPromotionId }) {
@@ -16,7 +17,7 @@ export default function PerformerCard({ performer, onRemove, showPromotionId }) 
     <div className="d-flex flex-column align-items-center mb-5">
       <Link href={`/performers/profile/${performer?.id}`} passHref>
         <Card className="performer-card m-2">
-          <Image src={performer?.image} style={{ height: '27rem', width: '19rem' }} alt="Performer Image" />
+          <Image src={performer?.image} style={{ height: '27rem', width: '21rem' }} alt="Performer Image" />
           <CardFooter className="performer-card-info">
             <h4>{performer?.ringName}</h4>
             <p>{performer?.role}</p>
@@ -25,7 +26,20 @@ export default function PerformerCard({ performer, onRemove, showPromotionId }) 
       </Link>
       {showPromotionId === user.promotionId && (
         <div>
-          <Button className="font" variant="outlined" color="error" onClick={handleRemove}>Remove Performer</Button>
+          <Button
+            className="font"
+            variant="outlined"
+            color="error"
+            onClick={handleRemove}
+            style={{
+              marginBottom: '1rem',
+              backgroundColor: 'rgba(104, 101, 101, 0.4)',
+              border: '1.5px solid rgba(255, 255, 255, 0.129)',
+              boxShadow: '0 8px 32px 0 rgba(30, 30, 30, 0.603)',
+              backdropFilter: 'blur( 7px )',
+            }}
+          ><DeleteOutline />
+          </Button>
         </div>
       )}
     </div>

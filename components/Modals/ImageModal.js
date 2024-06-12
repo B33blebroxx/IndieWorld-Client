@@ -4,6 +4,7 @@ import {
 import PropTypes from 'prop-types';
 import CloseIcon from '@mui/icons-material/Close';
 import { Image } from 'react-bootstrap';
+import { DeleteOutline } from '@mui/icons-material';
 
 export default function ImageModal({
   openModal,
@@ -31,14 +32,15 @@ export default function ImageModal({
         {isDeletable && (
           <Button
             onClick={handleDeleteImage}
+            size="small"
             style={{
               color: 'red',
               position: 'absolute',
-              right: 50,
-              top: 0,
+              left: -20,
+              top: 69,
             }}
           >
-            Delete
+            <DeleteOutline size="small" />
           </Button>
         )}
         <Typography

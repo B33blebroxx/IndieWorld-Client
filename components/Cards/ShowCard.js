@@ -6,6 +6,7 @@ import {
   Button, Card, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle,
 } from '@mui/material';
 import { Image } from 'react-bootstrap';
+import { DeleteOutline } from '@mui/icons-material';
 import ShowForm from '../Forms/ShowForm';
 import { deleteShow } from '../../api/showApi';
 
@@ -49,30 +50,39 @@ export default function ShowCard({ show, userObj, setShows }) {
         </a>
       </Link>
       {userObj && userObj?.promotionId === show.promotionId ? (
-        <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+        <div style={{ display: 'flex', flexDirection: 'column' }}>
           <ShowForm showObj={showWithDateObject} open={open} handleClose={handleClose} setShows={setShows} />
-          <>
-            <Button variant="outlined" color="error" onClick={handleOpenDeleteDialog}>Delete</Button>
-            <Dialog
-              open={openDeleteDialog}
-              onClose={handleCloseDeleteDialog}
-            >
-              <DialogTitle>Delete Show</DialogTitle>
-              <DialogContent>
-                <DialogContentText>
-                  Are you sure you want to delete this show?
-                </DialogContentText>
-              </DialogContent>
-              <DialogActions>
-                <Button onClick={handleCloseDeleteDialog} color="primary">
-                  Cancel
-                </Button>
-                <Button onClick={handleDelete} color="error" autoFocus>
-                  Confirm
-                </Button>
-              </DialogActions>
-            </Dialog>
-          </>
+          <Button
+            size="small"
+            variant="contained"
+            style={{
+              marginBottom: '1rem',
+              backgroundColor: 'rgba(104, 101, 101, 0.4)',
+              border: '1.5px solid rgba(255, 255, 255, 0.129)',
+              boxShadow: '0 8px 32px 0 rgba(30, 30, 30, 0.603)',
+              backdropFilter: 'blur( 7px )',
+            }}
+          ><DeleteOutline size="small" color="error" onClick={handleOpenDeleteDialog} />
+          </Button>
+          <Dialog
+            open={openDeleteDialog}
+            onClose={handleCloseDeleteDialog}
+          >
+            <DialogTitle>Delete Show</DialogTitle>
+            <DialogContent>
+              <DialogContentText>
+                Are you sure you want to delete this show?
+              </DialogContentText>
+            </DialogContent>
+            <DialogActions>
+              <Button onClick={handleCloseDeleteDialog} color="primary">
+                Cancel
+              </Button>
+              <Button onClick={handleDelete} color="error" autoFocus>
+                Confirm
+              </Button>
+            </DialogActions>
+          </Dialog>
         </div>
       ) : null}
     </Card>
