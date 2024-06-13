@@ -64,5 +64,8 @@ const deletePerformerPic = async (performerPicId) => {
 };
 
 export {
-  getAPerformerAndTheirPics, getAPerformerPic, createPerformerPic, deletePerformerPic,
+  getAPerformerAndTheirPics,
+  getAPerformerPic,
+  createPerformerPic,
+  deletePerformerPic,
 };

@@ -11,7 +11,9 @@ function PromotionCard({ promotionName, logo, id }) {
     <Link href={`/promotions/profile/${id}`} passHref>
       <Card className="promotion-card m-2">
         <Image src={logo} alt="Promotion Logo" width={385} height={255} />
-        <CardFooter component="h4" className="promotion-card-name"><h4>{promotionName}</h4></CardFooter>
+        <CardFooter component="h4" className="promotion-card-name">
+          <h4>{promotionName}</h4>
+        </CardFooter>
       </Card>
     </Link>
   );

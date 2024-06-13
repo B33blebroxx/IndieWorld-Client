@@ -61,5 +61,9 @@ const getAShowAndItsPerformers = async (id) => {
 };
 
 export {
-  createShow, updateShow, getAllShows, getAShowAndItsPerformers, deleteShow,
+  createShow,
+  updateShow,
+  getAllShows,
+  getAShowAndItsPerformers,
+  deleteShow,
 };

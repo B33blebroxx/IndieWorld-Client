@@ -2,7 +2,10 @@ import { useContext, useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
 import { Typography } from '@mui/material';
 import { UserContext } from '../../../utils/context/authContext';
-import { getAPerformerAndTheirPics, deletePerformerPic } from '../../../api/performerPicApi';
+import {
+  getAPerformerAndTheirPics,
+  deletePerformerPic,
+} from '../../../api/performerPicApi';
 import { getAPerformerAndTheirShows } from '../../../api/performerApi';
 import Loading from '../../../components/Loading';
 import PerformerInfoCard from '../../../components/Cards/PerformerInfoCard';
@@ -72,7 +75,11 @@ export default function PerformerProfile() {
   };
 
   if (loading) {
-    return <div><Loading /></div>;
+    return (
+      <div>
+        <Loading />
+      </div>
+    );
   }
 
   return (
@@ -80,7 +87,10 @@ export default function PerformerProfile() {
       <PerformerInfoCard performer={performer} />
       <br />
       <br />
-      <ViewModeToggle viewMode={viewMode} handleViewModeChange={handleViewModeChange} />
+      <ViewModeToggle
+        viewMode={viewMode}
+        handleViewModeChange={handleViewModeChange}
+      />
       {viewMode === 'upcomingShows' && (
         <div style={{ textAlign: 'left' }}>
           <ViewShows shows={shows} user={user} setShows={setShows} />
@@ -91,15 +101,22 @@ export default function PerformerProfile() {
           {user.performerId === performer.id && (
             <PerformerPicForm setPerformerPics={setPerformerPics} />
           )}
-          <PromotionPics promotionPics={performerPics} handleImageClick={handleImageClick} />
+          <PromotionPics
+            promotionPics={performerPics}
+            handleImageClick={handleImageClick}
+          />
         </div>
       )}
       {viewMode === 'pastShowImages' && performerPics?.length === 0 && (
         <div style={{ textAlign: 'left' }}>
           {user.performerId === performer.id && (
-          <PerformerPicForm setPerformerPics={setPerformerPics} />
+            <PerformerPicForm setPerformerPics={setPerformerPics} />
           )}
-          <Typography variant="body1" component="div" style={{ textAlign: 'center', marginTop: '2rem' }}>
+          <Typography
+            variant="body1"
+            component="div"
+            style={{ textAlign: 'center', marginTop: '2rem' }}
+          >
             No past show images available.
           </Typography>
         </div>

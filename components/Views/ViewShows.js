@@ -5,7 +5,12 @@ export default function ViewShows({ shows, user, setShows }) {
   return (
     <div className="show-cards-container">
       {shows.map((show) => (
-        <ShowCard key={show.id} show={show} userObj={user} setShows={setShows} />
+        <ShowCard
+          key={show.id}
+          show={show}
+          userObj={user}
+          setShows={setShows}
+        />
       ))}
     </div>
   );

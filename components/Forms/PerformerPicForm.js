@@ -80,8 +80,9 @@ export default function PerformerPicForm({ setPerformerPics }) {
         size="small"
         style={{
           marginBottom: '1rem',
-          backgroundColor: 'rgba(104, 101, 101, 0.4)',
-          border: '1.5px solid rgba(255, 255, 255, 0.129)',
+          backgroundColor: 'rgba(0, 0, 0, 0.8)',
+          opacity: '.88',
+          border: '1px solid rgba(255, 255, 255, 0.129)',
           boxShadow: '0 8px 32px 0 rgba(30, 30, 30, 0.603)',
           backdropFilter: 'blur( 7px )',
         }}
@@ -90,41 +91,76 @@ export default function PerformerPicForm({ setPerformerPics }) {
         <AddBoxOutlined size="small" style={{ color: 'white' }} />
       </Button>
       <Dialog open={open} onClose={handleClose}>
-        <DialogTitle>Add Performer Image</DialogTitle>
+        <DialogTitle textAlign="center">Add Performer Image</DialogTitle>
         <DialogContent>
           <FormGroup>
-            <FormLabel>Image</FormLabel>
-            <TextField type="file" accept="image/*" onChange={handleFileUpload} variant="outlined" margin="normal" fullWidth />
-            {formData.image && (
-              <div style={{
-                marginTop: '1rem', display: 'flex', justifyContent: 'center',
-              }}
-              >
-                <Image key={formData.image} src={formData.image} alt="Performer Image" style={{ maxWidth: '100%', maxHeight: '400px' }} />
-              </div>
-            )}
-          </FormGroup>
-          <FormGroup>
             <FormLabel>Show Name</FormLabel>
-            <TextField name="showName" value={formData.showName} onChange={handleChange} fullWidth variant="outlined" margin="normal" />
+            <TextField
+              name="showName"
+              value={formData.showName}
+              onChange={handleChange}
+              fullWidth
+              variant="standard"
+              margin="normal"
+            />
           </FormGroup>
+          <br />
           <FormGroup>
             <FormLabel>Show Date</FormLabel>
             <LocalizationProvider dateAdapter={AdapterDayjs}>
               <DatePicker
-                label="Show Date"
                 value={formData.showDate}
                 onChange={(newValue) => {
-                  setFormData((prevData) => ({ ...prevData, showDate: newValue }));
+                  setFormData((prevData) => ({
+                    ...prevData,
+                    showDate: newValue,
+                  }));
                 }}
-                renderInput={(params) => <TextField {...params} fullWidth variant="outlined" margin="normal" />}
+                renderInput={(params) => (
+                  <TextField
+                    {...params}
+                    fullWidth
+                    variant="standard"
+                    margin="normal"
+                  />
+                )}
               />
             </LocalizationProvider>
+          </FormGroup>
+          <br />
+          <FormGroup>
+            <FormLabel>Image</FormLabel>
+            <TextField
+              type="file"
+              accept="image/*"
+              onChange={handleFileUpload}
+              variant="standard"
+              margin="normal"
+              fullWidth
+            />
+            {formData.image && (
+              <div
+                style={{
+                  marginTop: '1rem',
+                  display: 'flex',
+                  justifyContent: 'center',
+                }}
+              >
+                <Image
+                  key={formData.image}
+                  src={formData.image}
+                  alt="Performer Image"
+                  style={{ maxWidth: '100%', maxHeight: '400px' }}
+                />
+              </div>
+            )}
           </FormGroup>
         </DialogContent>
         <DialogActions>
           <Button onClick={handleClose}>Cancel</Button>
-          <Button onClick={handleSubmit} color="primary">Submit</Button>
+          <Button onClick={handleSubmit} color="primary">
+            Submit
+          </Button>
         </DialogActions>
       </Dialog>
     </div>

@@ -54,5 +54,8 @@ const deletePromotionPic = async (promotionPicId) => {
 };
 
 export {
-  getAPromotionAndItsPics, getAPromotionPic, createPromotionPic, deletePromotionPic,
+  getAPromotionAndItsPics,
+  getAPromotionPic,
+  createPromotionPic,
+  deletePromotionPic,
 };

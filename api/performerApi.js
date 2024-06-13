@@ -1,12 +1,15 @@
 const endpoint = 'https://localhost:7114';
 
 const addPerformerToShow = async (showId, performerId) => {
-  const response = await fetch(`${endpoint}/shows/${showId}/performers/${performerId}`, {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
+  const response = await fetch(
+    `${endpoint}/shows/${showId}/performers/${performerId}`,
+    {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
     },
-  });
+  );
 
   if (!response.ok) {
     throw new Error('Failed to add performer to show');
@@ -16,12 +19,15 @@ const addPerformerToShow = async (showId, performerId) => {
 };
 
 const removePerformerFromShow = async (showId, performerId) => {
-  const response = await fetch(`${endpoint}/shows/${showId}/performers/${performerId}`, {
-    method: 'DELETE',
-    headers: {
-      'Content-Type': 'application/json',
+  const response = await fetch(
+    `${endpoint}/shows/${showId}/performers/${performerId}`,
+    {
+      method: 'DELETE',
+      headers: {
+        'Content-Type': 'application/json',
+      },
     },
-  });
+  );
 
   if (!response.ok) {
     throw new Error('Failed to remove performer from show');
@@ -95,6 +101,11 @@ const getAPerformer = async (id) => {
 };
 
 export {
-  addPerformerToShow, getAllPerformers, removePerformerFromShow, getAPerformerAndTheirShows, createPerformer, updatePerformer,
+  addPerformerToShow,
+  getAllPerformers,
+  removePerformerFromShow,
+  getAPerformerAndTheirShows,
+  createPerformer,
+  updatePerformer,
   getAPerformer,
 };

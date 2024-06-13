@@ -1,9 +1,5 @@
 import React from 'react';
-import {
-  Button,
-  Drawer,
-  Stack,
-} from '@mui/material';
+import { Button, Drawer, Stack } from '@mui/material';
 import MenuIcon from '@mui/icons-material/Menu';
 import { makeStyles } from '@mui/styles';
 import Link from 'next/link';
@@ -60,27 +56,27 @@ export default function NavBar() {
       >
         <br />
         <br />
-        <Image id="small-logo" height={175} width={175} quality={100} src={smallLogo} objectFit="contain" alt="Indie World Logo" />
+        <Image
+          id="small-logo"
+          height={175}
+          width={175}
+          quality={100}
+          src={smallLogo}
+          objectFit="contain"
+          alt="Indie World Logo"
+        />
         <Stack spacing={3} direction="column" style={{ padding: '1rem' }}>
           <Link href="/" passHref>
-            <Button className={`${classes.button} navLink`}>
-              Home
-            </Button>
+            <Button className={`${classes.button} navLink`}>Home</Button>
           </Link>
           <Link href="/promotions/all" passHref>
-            <Button className={`${classes.button} navLink`}>
-              Promotions
-            </Button>
+            <Button className={`${classes.button} navLink`}>Promotions</Button>
           </Link>
           <Link href="/shows/all" passHref>
-            <Button className={`${classes.button} navLink`}>
-              All Shows
-            </Button>
+            <Button className={`${classes.button} navLink`}>All Shows</Button>
           </Link>
           <Link href="/performers/all" passHref>
-            <Button className={`${classes.button} navLink`}>
-              Performers
-            </Button>
+            <Button className={`${classes.button} navLink`}>Performers</Button>
           </Link>
           <Button className={`${classes.button} navLink`} onClick={signOut}>
             Sign Out

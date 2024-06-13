@@ -13,7 +13,7 @@ export default function ViewModeToggle({ viewMode, handleViewModeChange }) {
         style={{
           marginBottom: '1rem',
           backgroundColor: 'rgba(33, 33, 33, 0.65)',
-          opacity: '.9',
+          opacity: '.85',
           border: '1px solid rgba(255, 255, 255, 0.129)',
           boxShadow: '0 8px 32px 0 rgba(30, 30, 30, 0.603)',
         }}
@@ -21,7 +21,7 @@ export default function ViewModeToggle({ viewMode, handleViewModeChange }) {
         <ToggleButton
           style={{
             color: viewMode === 'upcomingShows' ? 'white' : 'black',
-            backgroundColor: viewMode === 'upcomingShows' ? 'black' : 'grey',
+            backgroundColor: viewMode === 'upcomingShows' ? 'black' : 'white',
             backdropFilter: 'blur( 7px )',
           }}
           value="upcomingShows"
@@ -33,7 +33,7 @@ export default function ViewModeToggle({ viewMode, handleViewModeChange }) {
         <ToggleButton
           style={{
             color: viewMode === 'pastShowImages' ? 'white' : 'black',
-            backgroundColor: viewMode === 'pastShowImages' ? 'black' : 'grey',
+            backgroundColor: viewMode === 'pastShowImages' ? 'black' : 'white',
           }}
           value="pastShowImages"
           aria-label="past show images"
