@@ -1,5 +1,9 @@
 import {
-  Dialog, DialogContent, IconButton, Typography, Button,
+  Dialog,
+  DialogContent,
+  IconButton,
+  Typography,
+  Button,
 } from '@mui/material';
 import PropTypes from 'prop-types';
 import CloseIcon from '@mui/icons-material/Close';
@@ -23,7 +27,10 @@ export default function ImageModal({
       <DialogContent style={{ position: 'relative', background: 'black' }}>
         <IconButton
           style={{
-            color: 'white', position: 'absolute', right: 0, top: 0,
+            color: 'white',
+            position: 'absolute',
+            right: 0,
+            top: 0,
           }}
           onClick={handleCloseModal}
         >
@@ -47,7 +54,10 @@ export default function ImageModal({
           variant="h6"
           className="font"
           style={{
-            color: 'white', position: 'absolute', top: 10, left: 10,
+            color: 'white',
+            position: 'absolute',
+            top: 10,
+            left: 10,
           }}
         >
           {showName}
@@ -56,7 +66,10 @@ export default function ImageModal({
           variant="subtitle1"
           className="font"
           style={{
-            color: 'white', position: 'absolute', top: 40, left: 10,
+            color: 'white',
+            position: 'absolute',
+            top: 40,
+            left: 10,
           }}
         >
           {formattedDate}

@@ -1,8 +1,15 @@
 import React, { useState, useContext, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import {
-  Button, Dialog, DialogTitle, DialogContent, TextField, FormControl, InputLabel, Select, MenuItem, DialogActions,
-  FormLabel,
+  Button,
+  Dialog,
+  DialogTitle,
+  DialogContent,
+  TextField,
+  FormControl,
+  Select,
+  MenuItem,
+  DialogActions,
   Typography,
   FormControlLabel,
   Checkbox,
@@ -58,9 +65,7 @@ const PerformerForm = ({ performerObj }) => {
   };
 
   const handleChange = (e) => {
-    const {
-      name, value,
-    } = e.target;
+    const { name, value } = e.target;
     setFormData({ ...formData, [name]: value });
   };
 
@@ -93,60 +98,192 @@ const PerformerForm = ({ performerObj }) => {
       await updatePerformer(performerData).then(() => router.push(`/performers/profile/${user.performerId}`));
     } else {
       await createPerformer(performerData).then((newPerformer) => {
-        getUser(user.id).then(() => updateUserPerformer(user.id, newPerformer.id)).then(() => window.location.reload());
+        getUser(user.id)
+          .then(() => updateUserPerformer(user.id, newPerformer.id))
+          .then(() => window.location.reload());
       });
     }
   };
 
   return (
     <div>
-      <Button className="font" style={{ color: 'white' }} onClick={handleClickOpen}>
+      <Button
+        className="font"
+        style={{ color: 'white' }}
+        onClick={handleClickOpen}
+      >
         {user.performerId ? 'Edit Performer' : 'Create Performer'}
       </Button>
-      <Dialog open={open} onClose={handleClose} aria-labelledby="form-dialog-title">
-        <DialogTitle id="form-dialog-title">{performerObj ? 'Edit Performer' : 'Create Performer'}</DialogTitle>
-        <DialogContent>
-          <TextField autoFocus margin="normal" variant="outlined" name="ringName" label="Ring Name" type="text" fullWidth value={formData.ringName} onChange={handleChange} />
-          <TextField margin="normal" variant="outlined" name="bio" label="Bio" type="text" fullWidth value={formData.bio} onChange={handleChange} />
-          <TextField margin="normal" variant="outlined" name="hometown" label="Hometown" type="text" fullWidth value={formData.hometown} onChange={handleChange} />
-          <TextField margin="normal" variant="outlined" name="accolades" label="Accolades" type="text" fullWidth value={formData.accolades} onChange={handleChange} />
-          <FormControl fullWidth>
-            <InputLabel id="role-label">Role</InputLabel>
-            <Select labelId="role-label" id="role" name="roleId" value={formData.roleId} onChange={handleChange}>
-              {roles?.map((role) => (
-                <MenuItem key={role.id} value={role.id}>{role.title}</MenuItem>
-              ))}
-            </Select>
-          </FormControl>
-          <FormGroup>
-            <FormLabel>
-              <Typography component="div" variant="h7" color="textPrimary">Performer Image</Typography>
-            </FormLabel>
-            <TextField type="file" accept="jpg, jpeg, png" onChange={handleFileUpload} variant="outlined" margin="normal" />
-            {formData.image && (
-            <div style={{
-              marginTop: '1rem', marginLeft: '1rem', width: '400px', height: '400px', position: 'relative',
-            }}
-            >
-              <Image key={formData.image} src={formData.image} alt="Performer Image" style={{ marginLeft: '7.5rem', height: '21rem', width: '17rem' }} />
-            </div>
-            )}
-          </FormGroup>
-          <FormControlLabel
-            control={(
-              <Checkbox
-                checked={isActive}
-                onChange={handleCheckboxChange}
-                name="active"
-                color="primary"
+      <Dialog
+        open={open}
+        onClose={handleClose}
+        aria-labelledby="form-dialog-title"
+        PaperProps={{ style: { width: '700px', maxWidth: 'none' } }}
+      >
+        <DialogTitle id="form-dialog-title">
+          <Typography
+            className="font"
+            component="div"
+            variant="h4"
+            align="center"
+          >
+            {performerObj ? 'Edit Performer' : 'Create Performer'}
+          </Typography>
+        </DialogTitle>
+        <DialogContent style={{ width: '700px' }}>
+          <Typography component="div" variant="h7" align="center">
+            <FormGroup>
+              <TextField
+                required
+                autoFocus
+                margin="normal"
+                variant="filled"
+                name="ringName"
+                label="Ring Name"
+                helperText="(e.g. 'Speedball' Mike Bailey, 'The Cleaner' Kenny Omega, etc.)"
+                type="text"
+                fullWidth
+                value={formData.ringName}
+                onChange={handleChange}
               />
-  )}
-            label="Active"
-          />
+            </FormGroup>
+          </Typography>
+          <Typography component="div" align="center">
+            <FormGroup>
+              <TextField
+                required
+                margin="normal"
+                variant="filled"
+                name="bio"
+                multiline
+                label="Bio"
+                helperText="(Tell the fans about yourself...)"
+                type="text"
+                fullWidth
+                value={formData.bio}
+                onChange={handleChange}
+              />
+            </FormGroup>
+            <FormGroup>
+              <TextField
+                required
+                margin="normal"
+                variant="filled"
+                name="hometown"
+                label="Hometown"
+                helperText="(e.g. Winnipeg, Manitoba, Canada, Truth or Consequences, New Mexico, etc.)"
+                type="text"
+                fullWidth
+                value={formData.hometown}
+                onChange={handleChange}
+              />
+            </FormGroup>
+            <FormGroup>
+              <TextField
+                required
+                margin="normal"
+                variant="filled"
+                name="accolades"
+                label="Accolades"
+                helperText="(e.g. 2x IWGP Heavyweight Champion, 3x Triple Crown Champion, etc.)"
+                type="text"
+                fullWidth
+                value={formData.accolades}
+                onChange={handleChange}
+              />
+            </FormGroup>
+            <br />
+            <FormGroup>
+              <FormControl fullWidth>
+                <Select
+                  required
+                  labelId="role-label"
+                  id="role"
+                  name="roleId"
+                  className="font"
+                  sx={{ fontSize: '1.4rem' }}
+                  value={formData.roleId}
+                  onChange={handleChange}
+                >
+                  <MenuItem value="" disabled>
+                    -Select a Performer Role-
+                  </MenuItem>
+                  {roles?.map((role) => (
+                    <MenuItem key={role.id} value={role.id}>
+                      {role.title}
+                    </MenuItem>
+                  ))}
+                </Select>
+              </FormControl>
+            </FormGroup>
+            <FormGroup>
+              <FormControlLabel
+                control={(
+                  <Checkbox
+                    checked={isActive}
+                    onChange={handleCheckboxChange}
+                    name="active"
+                    color="primary"
+                    required
+                  />
+                )}
+                label="Active"
+              />
+            </FormGroup>
+            <FormGroup>
+              <Typography component="div" variant="h7" color="textPrimary">
+                <TextField
+                  required
+                  type="file"
+                  helperText="{Show the fans who you are...}"
+                  accept="jpg, jpeg, png"
+                  onChange={handleFileUpload}
+                  variant="filled"
+                  margin="normal"
+                />
+                {formData.image && (
+                  <div
+                    style={{
+                      marginTop: '1rem',
+                      marginLeft: '1rem',
+                      width: '400px',
+                      height: '400px',
+                      position: 'relative',
+                    }}
+                  >
+                    <Image
+                      key={formData.image}
+                      src={formData.image}
+                      alt="Performer Image"
+                      style={{
+                        marginLeft: '42%',
+                        height: '28rem',
+                        width: '20rem',
+                      }}
+                    />
+                  </div>
+                )}
+              </Typography>
+            </FormGroup>
+            <br />
+            <br />
+          </Typography>
         </DialogContent>
         <DialogActions>
-          <Button onClick={handleClose} color="primary">Cancel</Button>
-          <Button onClick={handleSubmit} color="primary">{performerObj ? 'Update' : 'Create'}</Button>
+          <Button
+            style={{ color: 'black' }}
+            onClick={handleSubmit}
+            color="primary"
+          >
+            {performerObj ? 'Update' : 'Create'}
+          </Button>
+          <Button
+            style={{ color: 'black' }}
+            onClick={handleClose}
+            color="primary"
+          >
+            Cancel
+          </Button>
         </DialogActions>
       </Dialog>
     </div>

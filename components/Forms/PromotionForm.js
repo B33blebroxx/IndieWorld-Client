@@ -3,13 +3,17 @@ import { useRouter } from 'next/router';
 import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import {
-  Box,
   Button,
   Dialog,
   DialogActions,
   DialogContent,
   DialogTitle,
-  FormControl, FormGroup, FormHelperText, FormLabel, MenuItem, Select, TextField,
+  FormControl,
+  FormGroup,
+  FormHelperText,
+  MenuItem,
+  Select,
+  TextField,
   Typography,
 } from '@mui/material';
 import Image from 'next/image';
@@ -57,14 +61,11 @@ export default function PromotionForm({ promotionObj }) {
     if (promotionObj?.id) {
       await updatePromotion(formData).then(() => router.push('/promotions/all'));
     } else {
-      await createPromotion(formData)
-        .then((newPromotion) => {
-          getUser(user.id)
-            .then(() => {
-              updateUserPromotion(user.id, newPromotion.id)
-                .then(() => router.push(`/promotions/profile/${newPromotion.id}`));
-            });
+      await createPromotion(formData).then((newPromotion) => {
+        getUser(user.id).then(() => {
+          updateUserPromotion(user.id, newPromotion.id).then(() => router.push(`/promotions/profile/${newPromotion.id}`));
         });
+      });
     }
   };
 
@@ -84,116 +85,193 @@ export default function PromotionForm({ promotionObj }) {
 
   return (
     <div>
-      <Button className="font" style={{ width: '12rem', color: 'white' }} color="primary" onClick={handleClickOpen}>
+      <Button
+        className="font"
+        style={{ width: '12rem', color: 'white' }}
+        color="primary"
+        onClick={handleClickOpen}
+      >
         {promotionObj ? 'Edit Promotion' : 'Create Promotion'}
       </Button>
-      <Dialog open={open} onClose={handleClose} aria-labelledby="form-dialog-title">
-        <DialogTitle id="form-dialog-title"><Typography component="div" variant="h6" align="center">Promotion Form</Typography></DialogTitle>
-        <DialogContent style={{ width: '600px' }}>
+      <Dialog
+        open={open}
+        className="font"
+        onClose={handleClose}
+        aria-labelledby="form-dialog-title"
+        PaperProps={{ style: { width: '700px', maxWidth: 'none' } }}
+      >
+        <DialogTitle>
+          <Typography
+            component="div"
+            className="font"
+            variant="h4"
+            align="center"
+          >
+            Promotion Form
+          </Typography>
+        </DialogTitle>
+        <DialogContent style={{ width: '700px' }}>
           <Typography component="div" align="center">
-            <Box display="flex" flexDirection="column" alignItems="center">
-              <div className="form-wrapper">
-                <form onSubmit={handleSubmit}>
-                  <FormGroup>
-                    <FormLabel>
-                      <Typography component="div" variant="h7" color="textPrimary">Promotion Name</Typography>
-                    </FormLabel>
-                    <TextField id="filled-basic" label="(ex: All Elite Wrestling, World Wrestling Entertainment, etc.)" variant="filled" name="promotionName" value={formData.promotionName} onChange={handleChange} required />
-                  </FormGroup>
-                  <br />
-                  <FormGroup>
-                    <FormLabel>
-                      <Typography component="div" variant="h7" color="textPrimary">Acronym</Typography>
-                    </FormLabel>
-                    <TextField id="filled-basic" label="(ex: AEW, WWE, etc.)" variant="filled" name="acronym" value={formData.acronym} onChange={handleChange} required />
-                  </FormGroup>
-                  <br />
-                  <FormGroup>
-                    <FormLabel> <Typography component="div" variant="h7" color="textPrimary">Headquarters</Typography></FormLabel>
-                    <TextField id="filled-basic" label="(ex: Jacksonville, FL, Stamford, CT, etc.)" type="text" variant="filled" name="hq" value={formData.hq} onChange={handleChange} required />
-                  </FormGroup>
-                  <br />
-                  <FormGroup>
-                    <FormLabel> <Typography component="div" variant="h7" color="textPrimary">Established</Typography></FormLabel>
-                    <TextField id="filled-basic" label="(ex: 2021, 1999, etc.)" variant="filled" type="number" name="established" value={formData.established} onChange={handleChange} required />
-                  </FormGroup>
-                  <br />
-                  <FormGroup>
-                    <FormLabel> <Typography component="div" variant="h7" color="textPrimary">Owner</Typography></FormLabel>
-                    <TextField id="filled-basic" label="(ex: Tony Khan, TKO Holdings, etc...)" variant="filled" type="text" name="owner" value={formData.owner} onChange={handleChange} required />
-                  </FormGroup>
-                  <br />
-                  <FormGroup>
-                    <FormLabel> <Typography component="div" variant="h7" color="textPrimary">Description</Typography></FormLabel>
-                    <TextField
-                      id="filled-basic"
-                      label="(ex: A brief description of the promotion)"
-                      variant="filled"
-                      type="text"
-                      multiline
-                      maxRows={6}
-                      name="description"
-                      value={formData.description}
-                      onChange={handleChange}
-                      required
-                    />
-                  </FormGroup>
-                  <FormGroup>
-                    <FormLabel> <Typography component="div" variant="h7" color="textPrimary">Show Frequency</Typography></FormLabel>
-                    <FormControl variant="filled">
-                      <Select
-                        labelId="showFrequency"
-                        size="small"
-                        id="showFrequency"
-                        name="showFrequency"
-                        value={formData.showFrequency}
-                        onChange={handleChange}
-                        required
-                      >
-                        <MenuItem value="Twice Weekly">Twice Weekly</MenuItem>
-                        <MenuItem value="Weekly">Weekly</MenuItem>
-                        <MenuItem value="Bi-Weekly">Bi-Weekly</MenuItem>
-                        <MenuItem value="Twice Monthly">Twice Monthly</MenuItem>
-                        <MenuItem value="Monthly">Monthly</MenuItem>
-                        <MenuItem value="Bi-Monthly">Bi-Monthly</MenuItem>
-                        <MenuItem value="Quarterly">Quarterly</MenuItem>
-                      </Select>
-                      <FormHelperText>Select how often your promotion has shows</FormHelperText>
-                    </FormControl>
-                  </FormGroup>
-                  <br />
-                  <FormGroup>
-                    <FormLabel> <Typography component="div" variant="h7" color="textPrimary">Logo</Typography></FormLabel>
-                    <TextField
-                      name="image"
-                      type="file"
-                      accept="jpg, jpeg, png"
-                      onChange={handleFileUpload}
-                      required
-                      fullWidth
-                    />
-                    {formData.logo && (
-                    <div style={{
-                      marginTop: '10px', marginLeft: '60px', width: '400px', height: '400px', position: 'relative',
-                    }}
-                    >
-                      <Image key={formData.logo} src={formData.logo} alt="Logo" layout="fill" objectFit="cover" />
-                    </div>
-                    )}
-                  </FormGroup>
-                  <br />
-                  <div className="button-container">
-                    <Button type="submit" variant="contained" color="primary">
-                      Submit
-                    </Button>
-                  </div>
-                </form>
-              </div>
-            </Box>
+            <FormGroup>
+              <TextField
+                id="filled-basic"
+                label="Promotion Name"
+                helperText="(e.g. All Elite Wrestling, New Japan Pro Wrestling, etc.)"
+                variant="filled"
+                name="promotionName"
+                value={formData.promotionName}
+                onChange={handleChange}
+                required
+              />
+            </FormGroup>
+            <br />
+            <FormGroup>
+              <TextField
+                id="filled-basic"
+                label="Promotion Acronym"
+                helperText="(e.g. AEW, NJPW, etc.)"
+                variant="filled"
+                name="acronym"
+                value={formData.acronym}
+                onChange={handleChange}
+                required
+              />
+            </FormGroup>
+            <br />
+            <FormGroup>
+              <TextField
+                id="filled-basic"
+                label="Headquarters"
+                helperText="(e.g. Jacksonville, FL, Stamford, CT, etc.)"
+                type="text"
+                variant="filled"
+                name="hq"
+                value={formData.hq}
+                onChange={handleChange}
+                required
+              />
+            </FormGroup>
+            <br />
+            <FormGroup>
+              <TextField
+                id="filled-basic"
+                label="Established"
+                helperText="(e.g. 2021, 1999, etc.)"
+                variant="filled"
+                type="number"
+                name="established"
+                value={formData.established}
+                onChange={handleChange}
+                required
+              />
+            </FormGroup>
+            <br />
+            <FormGroup>
+              <TextField
+                id="filled-basic"
+                label="Owner"
+                helperText="(e.g. Tony Khan, TKO Holdings, etc...)"
+                variant="filled"
+                type="text"
+                name="owner"
+                value={formData.owner}
+                onChange={handleChange}
+                required
+              />
+            </FormGroup>
+            <br />
+            <FormGroup>
+              <TextField
+                id="filled-basic"
+                label="Description"
+                helperText="(e.g. A brief description of your promotion)"
+                variant="filled"
+                type="text"
+                multiline
+                maxRows={6}
+                name="description"
+                value={formData.description}
+                onChange={handleChange}
+                required
+              />
+            </FormGroup>
+            <br />
+            <FormGroup>
+              <FormControl variant="filled">
+                <Select
+                  labelId="showFrequency"
+                  label="Show Frequency"
+                  size="small"
+                  id="showFrequency"
+                  name="showFrequency"
+                  className="font"
+                  sx={{ fontSize: '1.4rem' }}
+                  value={formData.showFrequency}
+                  onChange={handleChange}
+                  required
+                >
+                  <MenuItem value="Twice Weekly">Twice Weekly</MenuItem>
+                  <MenuItem value="Weekly">Weekly</MenuItem>
+                  <MenuItem value="Bi-Weekly">Bi-Weekly</MenuItem>
+                  <MenuItem value="Twice Monthly">Twice Monthly</MenuItem>
+                  <MenuItem value="Monthly">Monthly</MenuItem>
+                  <MenuItem value="Bi-Monthly">Bi-Monthly</MenuItem>
+                  <MenuItem value="Quarterly">Quarterly</MenuItem>
+                </Select>
+                <FormHelperText>
+                  (How often does your promotion run shows?)
+                </FormHelperText>
+              </FormControl>
+            </FormGroup>
+            <br />
+            <FormGroup>
+              <TextField
+                name="image"
+                type="file"
+                accept="jpg, jpeg, png"
+                onChange={handleFileUpload}
+                required
+                fullWidth
+              />
+              <FormHelperText>
+                (Upload a logo for your promotion)
+              </FormHelperText>
+              {formData.logo && (
+                <div
+                  style={{
+                    marginTop: '1rem',
+                    marginLeft: '19%',
+                    width: '400px',
+                    height: '400px',
+                    position: 'relative',
+                  }}
+                >
+                  <Image
+                    key={formData.logo}
+                    src={formData.logo}
+                    alt="Logo"
+                    layout="fill"
+                    objectFit="cover"
+                  />
+                </div>
+              )}
+            </FormGroup>
+            <br />
           </Typography>
         </DialogContent>
         <DialogActions>
-          <Button onClick={handleClose} color="primary">
+          <Button
+            style={{ color: 'black' }}
+            onClick={handleSubmit}
+            color="primary"
+          >
+            {promotionObj ? 'Update' : 'Create'}
+          </Button>
+          <Button
+            style={{ color: 'black' }}
+            onClick={handleClose}
+            color="primary"
+          >
             Cancel
           </Button>
         </DialogActions>

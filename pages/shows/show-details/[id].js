@@ -6,7 +6,10 @@ import Loading from '../../../components/Loading';
 import { getAShowAndItsPerformers } from '../../../api/showApi';
 import { UserContext } from '../../../utils/context/authContext';
 
-import { addPerformerToShow, removePerformerFromShow } from '../../../api/performerApi';
+import {
+  addPerformerToShow,
+  removePerformerFromShow,
+} from '../../../api/performerApi';
 import PerformerSelectionModal from '../../../components/Modals/PerformerSelectionModal';
 import ShowInfoCard from '../../../components/Cards/ShowInfoCard';
 import PerformerList from '../../../components/Views/PerformerListView';
@@ -42,7 +45,11 @@ export default function ShowDetails() {
   };
 
   if (loading) {
-    return <div><Loading /></div>;
+    return (
+      <div>
+        <Loading />
+      </div>
+    );
   }
   return (
     <>
@@ -61,8 +68,9 @@ export default function ShowDetails() {
           variant="outlined"
           style={{
             marginBottom: '1rem',
-            backgroundColor: 'rgba(104, 101, 101, 0.4)',
-            border: '1.5px solid rgba(255, 255, 255, 0.129)',
+            backgroundColor: 'rgba(0, 0, 0, 0.8)',
+            opacity: '.88',
+            border: '1px solid rgba(255, 255, 255, 0.129)',
             boxShadow: '0 8px 32px 0 rgba(30, 30, 30, 0.603)',
             backdropFilter: 'blur( 7px )',
           }}
@@ -81,7 +89,12 @@ export default function ShowDetails() {
       />
       <br />
       <br />
-      <PerformerList performers={performers} handleRemove={handleRemove} showPromotionId={showDetails.promotionId} userPromotionId={user.promotionId} />
+      <PerformerList
+        performers={performers}
+        handleRemove={handleRemove}
+        showPromotionId={showDetails.promotionId}
+        userPromotionId={user.promotionId}
+      />
     </>
   );
 }

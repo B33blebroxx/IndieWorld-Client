@@ -1,11 +1,19 @@
 import PropTypes from 'prop-types';
 import {
-  Card, CardContent, CardMedia, Divider, Stack, Typography,
+  Card,
+  CardContent,
+  CardMedia,
+  Divider,
+  Stack,
+  Typography,
 } from '@mui/material';
 
 export default function PerformerInfoCard({ performer }) {
   return (
-    <Card style={{ maxWidth: '80rem', height: '25rem' }} className="performerInfo">
+    <Card
+      style={{ maxWidth: '80rem', height: '25rem' }}
+      className="performerInfo"
+    >
       <div style={{ display: 'flex' }}>
         <CardMedia
           style={{
@@ -18,32 +26,98 @@ export default function PerformerInfoCard({ performer }) {
           alt="Performer Image"
           className="CardMedia"
         />
-        <CardContent style={{
-          flex: '1 0 50%', overflowY: 'auto', maxHeight: '25rem', margin: 0, padding: 0,
-        }}
+        <CardContent
+          style={{
+            flex: '1 0 50%',
+            overflowY: 'auto',
+            maxHeight: '25rem',
+            margin: 0,
+            paddingLeft: '1rem',
+          }}
         >
           <Stack spacing={2}>
-            <Typography className="font" variant="h4" component="div" align="center" style={{ color: 'white' }}>
+            <Typography
+              className="font"
+              variant="h4"
+              component="div"
+              align="center"
+              style={{ color: 'white' }}
+            >
               {performer?.ringName}
             </Typography>
-            <Divider orientation="horizontal" variant="middle" style={{ backgroundColor: 'lightgrey' }} flexItem />
-            <Typography className="font" variant="h5" component="div" align="center" style={{ color: 'white' }}>
+            <Divider
+              orientation="horizontal"
+              variant="middle"
+              style={{ backgroundColor: 'lightgrey' }}
+              flexItem
+            />
+            <Typography
+              className="font"
+              variant="h5"
+              component="div"
+              align="center"
+              style={{ color: 'white' }}
+            >
               Hometown: {performer?.hometown}
             </Typography>
-            <Divider orientation="horizontal" variant="middle" style={{ backgroundColor: 'lightgrey' }} flexItem />
-            <Typography className="font" variant="h5" component="div" align="center" style={{ color: 'white' }}>
+            <Divider
+              orientation="horizontal"
+              variant="middle"
+              style={{ backgroundColor: 'lightgrey' }}
+              flexItem
+            />
+            <Typography
+              className="font"
+              variant="h5"
+              component="div"
+              align="center"
+              style={{ color: 'white' }}
+            >
               Role: {performer?.role}
             </Typography>
-            <Divider orientation="horizontal" variant="middle" style={{ backgroundColor: 'lightgrey' }} flexItem />
-            <Typography className="font" variant="h5" component="div" align="center" style={{ color: 'white' }}>
+            <Divider
+              orientation="horizontal"
+              variant="middle"
+              style={{ backgroundColor: 'lightgrey' }}
+              flexItem
+            />
+            <Typography
+              className="font"
+              variant="h5"
+              component="div"
+              align="center"
+              style={{ color: 'white' }}
+            >
               Accolades: {performer?.accolades}
             </Typography>
-            <Divider orientation="horizontal" variant="middle" style={{ backgroundColor: 'lightgrey' }} flexItem />
-            <Typography className="font" variant="h5" component="div" align="center" style={{ color: 'white' }}>
+            <Divider
+              orientation="horizontal"
+              variant="middle"
+              style={{ backgroundColor: 'lightgrey' }}
+              flexItem
+            />
+            <Typography
+              className="font"
+              variant="h5"
+              component="div"
+              align="center"
+              style={{ color: 'white' }}
+            >
               Status: {performer?.active ? 'Active' : 'Inactive'}
             </Typography>
-            <Divider orientation="horizontal" variant="middle" style={{ backgroundColor: 'lightgrey' }} flexItem />
-            <Typography className="font" variant="h5" component="div" align="center" style={{ color: 'white' }}>
+            <Divider
+              orientation="horizontal"
+              variant="middle"
+              style={{ backgroundColor: 'lightgrey' }}
+              flexItem
+            />
+            <Typography
+              className="font"
+              variant="h5"
+              component="div"
+              align="center"
+              style={{ color: 'white' }}
+            >
               Bio: {performer?.bio}
             </Typography>
           </Stack>

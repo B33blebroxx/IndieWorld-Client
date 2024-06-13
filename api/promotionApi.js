@@ -69,5 +69,9 @@ const getAPromotionAndItsShows = (id) => new Promise((resolve, reject) => {
 });
 
 export {
-  createPromotion, updatePromotion, getPromotion, getAllPromotions, getAPromotionAndItsShows,
+  createPromotion,
+  updatePromotion,
+  getPromotion,
+  getAllPromotions,
+  getAPromotionAndItsShows,
 };
