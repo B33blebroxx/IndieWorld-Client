@@ -30,6 +30,8 @@ const initialState = {
   accolades: '',
   roleId: '',
   active: false,
+  instagram: '',
+  x: '',
 };
 
 const PerformerForm = ({ performerObj }) => {
@@ -192,6 +194,34 @@ const PerformerForm = ({ performerObj }) => {
                 onChange={handleChange}
               />
             </FormGroup>
+            <FormGroup>
+              <TextField
+                required
+                margin="normal"
+                variant="filled"
+                name="instagram"
+                label="Instagram"
+                helperText="(e.g. https://www.instagram.com/yourhandle)"
+                type="url"
+                fullWidth
+                value={formData.instagram}
+                onChange={handleChange}
+              />
+            </FormGroup>
+            <FormGroup>
+              <TextField
+                required
+                margin="normal"
+                variant="filled"
+                name="x"
+                label="X (Twitter)"
+                helperText="(e.g. https://twitter.com/yourhandle)"
+                type="url"
+                fullWidth
+                value={formData.x}
+                onChange={handleChange}
+              />
+            </FormGroup>
             <br />
             <FormGroup>
               <FormControl fullWidth>
@@ -300,6 +330,8 @@ PerformerForm.propTypes = {
     accolades: PropTypes.string,
     roleId: PropTypes.number,
     active: PropTypes.bool,
+    instagram: PropTypes.string,
+    x: PropTypes.string,
   }),
   roles: PropTypes.shape({
     id: PropTypes.number,

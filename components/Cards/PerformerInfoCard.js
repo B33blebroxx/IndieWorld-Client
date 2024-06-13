@@ -6,7 +6,10 @@ import {
   Divider,
   Stack,
   Typography,
+  IconButton,
 } from '@mui/material';
+import InstagramIcon from '@mui/icons-material/Instagram';
+import { X } from '@mui/icons-material';
 
 export default function PerformerInfoCard({ performer }) {
   return (
@@ -120,6 +123,36 @@ export default function PerformerInfoCard({ performer }) {
             >
               Bio: {performer?.bio}
             </Typography>
+            <Divider
+              orientation="horizontal"
+              variant="middle"
+              style={{ backgroundColor: 'lightgrey' }}
+              flexItem
+            />
+            <div style={{ display: 'flex', justifyContent: 'center' }}>
+              {performer?.instagram && (
+                <IconButton
+                  component="a"
+                  href={performer.instagram}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  style={{ color: 'white' }}
+                >
+                  <InstagramIcon />
+                </IconButton>
+              )}
+              {performer?.x && (
+                <IconButton
+                  component="a"
+                  href={performer.x}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  style={{ color: 'white' }}
+                >
+                  <X />
+                </IconButton>
+              )}
+            </div>
           </Stack>
         </CardContent>
       </div>
@@ -136,5 +169,7 @@ PerformerInfoCard.propTypes = {
     accolades: PropTypes.string.isRequired,
     active: PropTypes.bool.isRequired,
     bio: PropTypes.string.isRequired,
+    instagram: PropTypes.string,
+    x: PropTypes.string,
   }).isRequired,
 };
