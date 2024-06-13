@@ -120,7 +120,7 @@ export default function PromotionPicForm({ setPromotionPics }) {
           <FormGroup>
             <LocalizationProvider dateAdapter={AdapterDayjs}>
               <DatePicker
-                label="Show Date"
+                label="Event Date"
                 value={formData.showDate}
                 onChange={(newValue) => {
                   setFormData((prevData) => ({
@@ -151,7 +151,7 @@ export default function PromotionPicForm({ setPromotionPics }) {
               fullWidth
             />
             <FormHelperText>
-              (Select an image from a show to upload)
+              (Select an image from an event to upload)
             </FormHelperText>
             {formData.image && (
               <div

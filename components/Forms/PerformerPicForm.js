@@ -7,8 +7,9 @@ import {
   DialogContent,
   DialogTitle,
   FormGroup,
-  FormLabel,
+  FormHelperText,
   TextField,
+  Typography,
 } from '@mui/material';
 import { DatePicker, LocalizationProvider } from '@mui/x-date-pickers';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
@@ -91,24 +92,34 @@ export default function PerformerPicForm({ setPerformerPics }) {
         <AddBoxOutlined size="small" style={{ color: 'white' }} />
       </Button>
       <Dialog open={open} onClose={handleClose}>
-        <DialogTitle textAlign="center">Add Performer Image</DialogTitle>
+        <DialogTitle textAlign="center">
+          <Typography
+            className="font"
+            component="div"
+            variant="h4"
+            align="center"
+          >
+            Add  Image
+          </Typography>
+        </DialogTitle>
         <DialogContent>
           <FormGroup>
-            <FormLabel>Show Name</FormLabel>
             <TextField
               name="showName"
+              label="Event Name"
+              helperText="(e.g. All Out, Effy's Big Gay Brunch, etc.)"
               value={formData.showName}
               onChange={handleChange}
               fullWidth
-              variant="standard"
+              variant="filled"
               margin="normal"
             />
           </FormGroup>
           <br />
           <FormGroup>
-            <FormLabel>Show Date</FormLabel>
             <LocalizationProvider dateAdapter={AdapterDayjs}>
               <DatePicker
+                label="Event Date"
                 value={formData.showDate}
                 onChange={(newValue) => {
                   setFormData((prevData) => ({
@@ -129,7 +140,6 @@ export default function PerformerPicForm({ setPerformerPics }) {
           </FormGroup>
           <br />
           <FormGroup>
-            <FormLabel>Image</FormLabel>
             <TextField
               type="file"
               accept="image/*"
@@ -138,6 +148,9 @@ export default function PerformerPicForm({ setPerformerPics }) {
               margin="normal"
               fullWidth
             />
+            <FormHelperText>
+              (Select an image from an event to upload)
+            </FormHelperText>
             {formData.image && (
               <div
                 style={{
@@ -157,10 +170,10 @@ export default function PerformerPicForm({ setPerformerPics }) {
           </FormGroup>
         </DialogContent>
         <DialogActions>
-          <Button onClick={handleClose}>Cancel</Button>
           <Button onClick={handleSubmit} color="primary">
-            Submit
+            Add Image
           </Button>
+          <Button onClick={handleClose}>Cancel</Button>
         </DialogActions>
       </Dialog>
     </div>
