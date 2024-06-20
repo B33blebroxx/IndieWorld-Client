@@ -54,6 +54,10 @@ export default function PromotionPicForm({ setPromotionPics }) {
       ...formData,
       promotionId: user.promotionId,
     };
+    if (!data.image || !data.showDate || !data.showName) {
+      alert('Please fill out all fields before submitting');
+      return;
+    }
     await createPromotionPic(data).then((newPic) => {
       setPromotionPics((prevPics) => [...prevPics, newPic]);
       handleClose();

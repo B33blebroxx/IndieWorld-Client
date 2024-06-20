@@ -36,7 +36,6 @@ export default function ShowForm({ showObj, setShows }) {
   const [open, setOpen] = useState(false);
 
   useEffect(() => {
-    console.log('showObj:', showObj); // Log showObj for debugging
     if (showObj && showObj.id) {
       setFormData({
         ...showObj,
@@ -215,6 +214,7 @@ export default function ShowForm({ showObj, setShows }) {
               <FormGroup>
                 <TextField
                   type="file"
+                  variant="filled"
                   accept="jpg, jpeg, png"
                   onChange={handleFileUpload}
                 />

@@ -14,6 +14,7 @@ import {
   FormControlLabel,
   Checkbox,
   FormGroup,
+  FormHelperText,
 } from '@mui/material';
 import { Image } from 'react-bootstrap';
 import { useRouter } from 'next/router';
@@ -96,6 +97,10 @@ const PerformerForm = ({ performerObj }) => {
       promotionId: user.promotionId,
       active: isActive,
     };
+    if (!performerData.roleId || !performerData.image) {
+      alert('Please fill all required fields.');
+      return;
+    }
     if (user.performerId) {
       await updatePerformer(performerData).then(() => router.push(`/performers/profile/${user.performerId}`));
     } else {
@@ -196,7 +201,6 @@ const PerformerForm = ({ performerObj }) => {
             </FormGroup>
             <FormGroup>
               <TextField
-                required
                 margin="normal"
                 variant="filled"
                 name="instagram"
@@ -210,7 +214,6 @@ const PerformerForm = ({ performerObj }) => {
             </FormGroup>
             <FormGroup>
               <TextField
-                required
                 margin="normal"
                 variant="filled"
                 name="x"
@@ -244,6 +247,7 @@ const PerformerForm = ({ performerObj }) => {
                     </MenuItem>
                   ))}
                 </Select>
+                <FormHelperText className="font">(What role do you fulfill as a performer?)</FormHelperText>
               </FormControl>
             </FormGroup>
             <FormGroup>
@@ -254,7 +258,6 @@ const PerformerForm = ({ performerObj }) => {
                     onChange={handleCheckboxChange}
                     name="active"
                     color="primary"
-                    required
                   />
                 )}
                 label="Active"
@@ -265,7 +268,7 @@ const PerformerForm = ({ performerObj }) => {
                 <TextField
                   required
                   type="file"
-                  helperText="{Show the fans who you are...}"
+                  helperText="(Show the fans who you are...)"
                   accept="jpg, jpeg, png"
                   onChange={handleFileUpload}
                   variant="filled"
