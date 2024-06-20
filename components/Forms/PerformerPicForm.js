@@ -54,6 +54,10 @@ export default function PerformerPicForm({ setPerformerPics }) {
       ...formData,
       performerId: user.performerId,
     };
+    if (!data.image || !data.showDate || !data.showName) {
+      alert('Please fill out all fields before submitting');
+      return;
+    }
     await createPerformerPic(data).then((newPic) => {
       setPerformerPics((prevPics) => [...prevPics, newPic]);
       handleClose();
@@ -113,6 +117,7 @@ export default function PerformerPicForm({ setPerformerPics }) {
               fullWidth
               variant="filled"
               margin="normal"
+              required
             />
           </FormGroup>
           <br />

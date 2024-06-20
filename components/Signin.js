@@ -1,28 +1,50 @@
 import React from 'react';
-import { Button } from 'react-bootstrap';
+import {
+  Button, Card, CardContent, CardMedia, Typography,
+} from '@mui/material';
+import Image from 'next/image';
 import { signIn } from '../utils/auth';
+import logo from '../utils/data/IndieWorldLogoNoBackground.png';
 
 function Signin() {
   return (
-    <div
-      className="text-center d-flex flex-column justify-content-center align-content-center"
+    <Card
       style={{
-        height: '90vh',
-        padding: '30px',
-        margin: '0 auto',
-        zIndex: 1,
-        minHeight: '25rem',
-        width: '100%',
-        minWidth: '30rem',
-        paddingBlock: '0 5rem',
+        display: 'flex',
+        flexDirection: 'column',
+        justifyContent: 'center',
+        alignItems: 'center',
       }}
+      id="home-card"
+      className="text-center"
     >
-      <h1>Hi there!</h1>
-      <p>Click the button below to login!</p>
-      <Button type="button" size="lg" className="copy-btn" onClick={signIn}>
-        Sign In
-      </Button>
-    </div>
+      <CardMedia>
+        <Image
+          id="logo"
+          height={200}
+          width={200}
+          quality={100}
+          src={logo}
+          alt="Indie World Logo"
+        />
+      </CardMedia>
+      <Typography className="font" color="white">
+        <CardContent component="h1">Hi there!</CardContent>
+        <CardContent component="h3">Click the button below to login!</CardContent>
+        <Button
+          type="button"
+          variant="outlined"
+          size="med"
+          style={{
+            alignSelf: 'center', width: '6rem', color: 'white', borderColor: 'white',
+          }}
+          className="copy-btn"
+          onClick={signIn}
+        >
+          Sign In
+        </Button>
+      </Typography>
+    </Card>
   );
 }
 

@@ -215,6 +215,7 @@ export default function ShowForm({ showObj, setShows }) {
               <FormGroup>
                 <TextField
                   type="file"
+                  variant="filled"
                   accept="jpg, jpeg, png"
                   onChange={handleFileUpload}
                 />

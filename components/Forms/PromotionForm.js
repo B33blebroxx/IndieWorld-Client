@@ -58,12 +58,20 @@ export default function PromotionForm({ promotionObj }) {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    if (!formData.showFrequency) {
+      alert('Show frequency selection is required.');
+      return;
+    }
+    if (!formData.logo) {
+      alert('Logo upload is required.');
+      return;
+    }
     if (promotionObj?.id) {
       await updatePromotion(formData).then(() => router.push('/promotions/all'));
     } else {
       await createPromotion(formData).then((newPromotion) => {
         getUser(user.id).then(() => {
-          updateUserPromotion(user.id, newPromotion.id).then(() => router.push(`/promotions/profile/${newPromotion.id}`));
+          updateUserPromotion(user.id, newPromotion.id).then(() => router.push('/index').then(() => router.reload()));
         });
       });
     }
@@ -210,6 +218,9 @@ export default function PromotionForm({ promotionObj }) {
                   onChange={handleChange}
                   required
                 >
+                  <MenuItem value="" disabled>
+                    -Select Show Frequency-
+                  </MenuItem>
                   <MenuItem value="Twice Weekly">Twice Weekly</MenuItem>
                   <MenuItem value="Weekly">Weekly</MenuItem>
                   <MenuItem value="Bi-Weekly">Bi-Weekly</MenuItem>
@@ -228,6 +239,7 @@ export default function PromotionForm({ promotionObj }) {
               <TextField
                 name="image"
                 type="file"
+                variant="filled"
                 accept="jpg, jpeg, png"
                 onChange={handleFileUpload}
                 required
