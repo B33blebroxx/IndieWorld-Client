@@ -36,7 +36,6 @@ export default function ShowForm({ showObj, setShows }) {
   const [open, setOpen] = useState(false);
 
   useEffect(() => {
-    console.log('showObj:', showObj); // Log showObj for debugging
     if (showObj && showObj.id) {
       setFormData({
         ...showObj,
